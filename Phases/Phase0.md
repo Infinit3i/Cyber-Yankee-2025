@@ -11,10 +11,10 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
- Exploit Used: PoC.py
- CVE: CVE-2024-0012 and CVE-2024-9474
+Exploit Used: PoC.py
+CVE: CVE-2024-0012 and CVE-2024-9474
 
-Exploit Setup:
+*Exploit Setup:*
 
 1. Create a new folder on your attack box as this will be used to stage all of the required files and scripts.
 2. Open a text editor on the attack machine (preferably nano).
