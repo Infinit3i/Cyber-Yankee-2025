@@ -52,7 +52,7 @@ sudo vim /tmp/pan_os_comm.py
 
 `i`
 ```python
-#!/usr/bin/env python3 
+usr/bin/env python3 
 
 import socket,subprocess,os;
 
