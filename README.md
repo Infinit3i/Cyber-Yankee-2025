@@ -14,8 +14,11 @@
 
 [Phase6](Phase6) - #Credential Access (via LDAP, SAM/NTDS)
 
-[Phase7](Phase7) - Lateral Movement and Persistence
+
+
+
+[Phase7](Phase7) - Lateral Movement and Persistence *DAY 3*
 
 [Phase8](Phase8) - `WinDefMon` Reverse Shell Service on DC
 
-[Phase9](Phase9) - OT Network Target Prep (Later Stage)
+[Phase9](Phase9) - OT Network Target Prep (Later Stage) *DAY 4* - DESTROY NETWORK
