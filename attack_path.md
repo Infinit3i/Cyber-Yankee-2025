@@ -1,45 +1,5 @@
 
 
-
-# Phase 1: Initial Access via Palo Alto Exploit
-
-Post-Exploitation:
-● Upgrade shell if necessary.
-● Identify internal routes/interfaces.
-● Upload a simple proxy (e.g., socat or chisel) if needed for tunneling
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-# Phase 2: Internal Reconnaissance & Enumeration
-Once inside the firewall OS:
-### Identify internal interfaces and routes
-
-```bash
-ip addr
-ip route
-cat /etc/resolv.conf
-```
-
-# Look for management configs or logs
-
-```bash
-cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
-```
-
 ## 🧨 Final Red Team Implant: `pan_os_comm.sh` with Stealthy Service
 
 ### 1. 🎯 Start the Listener on (ATTACKER)
