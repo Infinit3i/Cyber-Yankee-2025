@@ -15,8 +15,8 @@ Exploit Used: PoC.py
 CVE: CVE-2024-0012 and CVE-2024-9474
 
 
-## *REQUIREMENTS*: [https://github.com/Collective-Software/ClickPaste](https://github.com/Collective-Software/ClickPaste)
-	- to copy and paste information simpler
+## *REQUIREMENTS*: [ClickPaste](https://github.com/Collective-Software/ClickPaste)
+	- to copy and paste information simpler to from your HOST to the VM
  
 # Phase 0: Initial Setup for Kill Chain
 
