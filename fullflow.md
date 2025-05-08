@@ -221,11 +221,12 @@ KG+Vs7e5$dF4
    ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
    If you do not see the following, its time to troubleshoot.
-   Troubleshooting steps:
-   1. Ensure you are using the correct IP addresses and ports in your listeners and exploit arguments
+   
+Troubleshooting steps:
+   1. Use the correct IP addresses and ports in your listeners and exploit arguments
    2. Ensure there is routing to the Palo Management Interface.
    3. Ensure you copied your exploit script over correctly
-   4. If all else fails, find a Sassy Panda SME and pray they have the answers :-)
+   4. Find a Sassy Panda SME and pray they have the answers :-)
 
 ## Phase 2: Palo Persistence
 
@@ -302,7 +303,8 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 4. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
 5. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
    When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
-   ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
+
+![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
 
 
 ## Phase 5: Internal Reconnaissance & Enumeration
