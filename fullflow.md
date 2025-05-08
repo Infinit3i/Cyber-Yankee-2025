@@ -337,7 +337,12 @@ This will use Hashcat to attempt cracking the passwords. The -m 7400 option spec
 
 7.Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
 
-8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
+8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
+
+```bash
+ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
+```
+
   - When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
 
 ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
