@@ -79,13 +79,15 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 
 1. Locate your `rockyou.txt` file and open using sudo.
 2. Once open, append the below to list of passwords to the to the list.
-   	```
-   	sudo nano /usr/share/wordlists/rockyou.txt
-   	(copy and paste the below list)
-    	ctrl+O
-   	ctrl+X`
+```
+sudo nano /usr/share/wordlists/rockyou.txt
+```
 
-	```
+(copy and paste the below list)
+ctrl+O
+ctrl+X`
+
+
 
 #### PASSWORD LIST:  
 
