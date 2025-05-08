@@ -83,9 +83,9 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 sudo nano /usr/share/wordlists/rockyou.txt
 ```
 
-(copy and paste the below list)
-ctrl+O
-ctrl+X`
+- `(copy and paste the below list)`
+- `Ctrl+O`
+- `ctrl+X`
 
 
 
