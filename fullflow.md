@@ -338,7 +338,7 @@ This will use Hashcat to attempt cracking the passwords. The -m 7400 option spec
 7.Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
 
 8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
-   When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
+  - When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
 
 ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
 
@@ -352,8 +352,8 @@ Additionally, we copy all outputs from coommands into a text document on our loc
 1. Get Network Interfaces and copy them into a text file on your host machine: `show interface all`
 2. View routing table and copy into same created text file: `show routing route`
 3. Check arp table: `show arp all`
-4. Check active sessions: `show session all`
-5. Show system resources: `show system resources`
+4. Show system resources: `show system resources`
+
 
 #### Look for management configs or logs
 
