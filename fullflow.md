@@ -10,6 +10,7 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 ## Attack Flow
 
+**SUBJECT TO CHANGE**
 - `Palo Alto Firewall` -> `Windows DC` -> `OT`
 - `orange-firewall(10.10.100.169)` -> `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
 
