@@ -16,6 +16,7 @@ CVE: CVE-2024-0012 and CVE-2024-9474
 
 
 ## *REQUIREMENTS*: [ClickPaste](https://github.com/Collective-Software/ClickPaste)
+	- download from source file
 	- to copy and paste information simpler to from your HOST to the VM
  
 # Phase 0: Initial Setup for Kill Chain
