@@ -15,7 +15,7 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
 Exploit Used: `PoC.py`
-CVE: CVE-2024-0012 and `CVE-2024-9474`
+CVE: `CVE-2024-0012` and `CVE-2024-9474`
 
 ## *REQUIREMENTS*: [ClickPaste](https://github.com/Collective-Software/ClickPaste)
 
@@ -63,11 +63,16 @@ pty.spawn("/bin/bash")
 
 3. Once created, run the following command: `chmod +x pan_os_comm.py`
 
+### Create your netcat
+
 ### *Host Your Tools Folder On A Web Server*
 
 1. In the folder where you have created your tools, start a web server to host the necessary files for the exploit
    Run the below command to start the web server:
-   `python3 -m http.server <port>`
+
+```bash
+python3 -m http.server 80
+```
 
 ### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
 
