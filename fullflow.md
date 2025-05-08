@@ -274,6 +274,7 @@ Now that we have a way to return to the system, let’s gather critical files co
 `UTILIZING THE CALL BACK BEACON- NOT THE EXPLOIT SHELL`
 
 ```bash
+cd ~
 cat /etc/passwd > users.txt
 cat /etc/shadow >> users.txt  # Notice the '>>', it appends the content of /etc/shadow
 cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
