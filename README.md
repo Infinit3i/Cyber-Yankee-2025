@@ -2,27 +2,29 @@
 
 ## Sassy Panda
 
-[Phase1](Phase1) - #PanOS Exploit
+[Phase01](Phase01) - #PanOS Exploit
 
-[Phase2](Phase2) - #PanOS Internal Reconnaissance & Enumeration
+[Phase02](Phase02) - #PanOS Internal Reconnaissance & Enumeration
 
-[Phase3](Phase3) - #PanOS Persistence
+[Phase03](Phase03) - #PanOS Persistence
 
-[Phase4](Phase4) - #PanOS proxy chains
-
----
-
-[Phase5](Phase5) - #Discovery Inside Orange Space
-
-[Phase6](Phase6) - #Credential Access (via LDAP, SAM/NTDS)
+[Phase04](Phase04) - #PanOS proxy chains
 
 ---
 
-[Phase7](Phase7) - Lateral Movement and Persistence *DAY 3*
+[Phase05](Phase05) - #Discovery Inside Orange Space
 
-[Phase8](Phase8) - `WinDefMon` Reverse Shell Service on DC
+[Phase06](Phase06) - #Credential Access (via LDAP, SAM/NTDS)
 
-[Phase9](Phase9) - OT Network Target Prep (Later Stage) *DAY 4* - DESTROY NETWORK
+---
+
+[Phase07](Phase07) - Lateral Movement and Persistence *DAY 3*
+
+[Phase08](Phase08) - `WinDefMon` Reverse Shell Service on DC
+
+[Phase09](Phase09) - OT Network Target Prep (Later Stage) *DAY 4* - DESTROY NETWORK
+
+[Phase20](Phase20) - Clean the environment
 
 ## Steps
 
