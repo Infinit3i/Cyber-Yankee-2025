@@ -12,7 +12,7 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 **SUBJECT TO CHANGE**
 - `Palo Alto Firewall` -> `Windows DC` -> `OT`
-- `orange-firewall(10.10.100.169)` -> `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
+- `orange-firewall(1.33.170.38)` -> `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
 Exploit Used: `PoC.py`
