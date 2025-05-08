@@ -352,7 +352,7 @@ Additionally, we copy all outputs from coommands into a text document on our loc
 1. Get Network Interfaces and copy them into a text file on your host machine: `show interface all`
 2. View routing table and copy into same created text file: `show routing route`
 3. Check arp table: `show arp all`
-4. Show system resources: `show system resources`
+
 
 
 #### Look for management configs or logs
