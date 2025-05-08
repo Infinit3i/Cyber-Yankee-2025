@@ -1,3 +1,16 @@
 ```bash
-ssh -N -L 4444:104.55.222.106:3389 -R 5555:localhost:3389 -D 1080 kaliuser@102.214.90.13
+ssh -N -L 4444:104.55.222.106:22 -R 5555:localhost:22 -D 1080 kaliuser@102.214.90.13
+```
+
+
+Then from **Kali (102.214.90.13)**:
+
+```bash
+ssh -p 5555 localhost   # connect back to target's SSH
+```
+
+And from **target (104.55.222.106)**:
+
+```bash
+ssh -p 4444 localhost   # tunnel to Kali's SSH
 ```
