@@ -243,6 +243,7 @@ Troubleshooting steps:
 ```bash
 whoami 
 pwd
+cd ~
 ls
 ```
 
