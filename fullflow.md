@@ -27,7 +27,7 @@ CVE: CVE-2024-0012 and CVE-2024-9474
 1. Create a new folder on your attack box as this will be used to stage all of the required files and scripts.
 2. Open a text editor on the attack machine (preferably nano).
 3. Copy and paste the PoC.py script into the text editor (best case of doing this is utilizing ClickPaste and keep the name the same)
-4. If using nano, press ctrl+O and then enter to write out the file, then press ctrl+X to exit the program
+4. If using nano, press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
 5. `chmod +x PoC.py`
    
 
