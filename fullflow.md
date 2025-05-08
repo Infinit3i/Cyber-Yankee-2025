@@ -181,7 +181,7 @@ Once you are in the Palo Alto's bash shell, remember that this shell has limited
    `crontab -l`
    	NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
 
-#Phase 3: Enumeration and Exfil
+# Phase 3: Enumeration and Exfil
 
 Now that we have a way to return to the system, let’s gather critical files containing sensitive data, which can be exfiltrated and reviewed offline for password cracking.
 
