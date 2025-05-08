@@ -224,7 +224,7 @@ Section 2. Execute the PoC Script
 
 # Phase 2: Palo Persistence
 
-Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. Features like the tab key for autocompletion and the up/down arrow keys won’t work. The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
+Once you are in the Palo Alto's bash shell, remember that this shell has limited functionality. **Features like the tab key for autocompletion and the up/down arrow keys won’t work.** The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
 
 1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
    ```
