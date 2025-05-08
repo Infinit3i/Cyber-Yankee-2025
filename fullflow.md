@@ -37,13 +37,13 @@ ssh -N -R 5555:localhost:22 -L 4444:<DJIBOUTI_BOX>:22 -D 1080 kali@<DJIBOUTI_BOX
 #### Djibouti (102.214.90.X)
 
 ```bash
-ssh -p 5555 localhost   # connect back to target's SSH
+ssh -p 5555 localhost   # connect back to Terran
 ```
 
 #### Terran (104.55.222.X)
 
 ```bash
-ssh -p 4444 localhost   # tunnel to Kali's SSH
+ssh -p 4444 localhost   # tunnel to Djibouti
 ```
 
 ### Exploit Setup:
