@@ -14,6 +14,8 @@ Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
 Exploit Used: PoC.py
 CVE: CVE-2024-0012 and CVE-2024-9474
 
+
+## *REQUIREMENTS*: (https://github.com/Collective-Software/ClickPaste)[https://github.com/Collective-Software/ClickPaste]
  
 # Phase 0: Initial Setup for Kill Chain
 
