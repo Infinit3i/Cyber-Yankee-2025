@@ -73,7 +73,7 @@ Through OSINT and recon, we have located a list of compromised passwords from us
    	 ctrl+X`
 
 PASSWORD LIST:   
-
+```
 Summer2025
 JohnDoe123
 Password123!
@@ -124,7 +124,7 @@ BeachTime24
 SleepyM0rning!
 G0ldenMoon#23
 CoolDays@123
-
+```
 
 - Now that you are fully set up, move to Phase 1.
 
