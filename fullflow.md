@@ -238,8 +238,10 @@ Troubleshooting steps:
 
 1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
 
+   - (response should be "root")
+
 ```bash
-whoami (response should be "root")
+whoami 
 pwd
 ls
 ```
