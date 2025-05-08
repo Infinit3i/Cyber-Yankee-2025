@@ -292,20 +292,24 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
    This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
 4. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
-5. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh admin@<palo_ip>`
+5. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38`
    When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
+   ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
+
 
 ## Phase 5: Internal Reconnaissance & Enumeration
 
-Once inside the firewall OS:
+In this section, we’ll perform network discovery using native PAN-OS commands directly from the compromised Palo Alto device. We’ll focus on gathering network information, such as interfaces, routing tables, and active sessions.
 
-### Identify internal interfaces and routes
+Additionally, we copy all outputs from coommands into a text document on our local machine for later review.
 
-```bash
-ip addr
-ip route
-cat /etc/resolv.conf
-```
+1. Get Network Interfaces and copy them into a text file on your host machine: `show interface all`
+2. View routing table and copy into same created text file: `show routing route`
+3. Check arp table: `show arp all`
+4. Check active sessions: `show session all`
+5. Show system resources: `show system resources`
+
+
 
 #### Look for management configs or logs
 
