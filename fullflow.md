@@ -11,8 +11,8 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
-Exploit Used: PoC.py
-CVE: CVE-2024-0012 and CVE-2024-9474
+Exploit Used: `PoC.py`
+CVE: CVE-2024-0012 and `CVE-2024-9474`
 
 
 ## *REQUIREMENTS*: [ClickPaste](https://github.com/Collective-Software/ClickPaste)
@@ -68,7 +68,7 @@ pty.spawn("sh")
    `python3 -m http.server <port>`
 
 
-*Update Your rockyou.txt Wordlist For Later Password Cracking*
+*Update Your `rockyou.txt` Wordlist For Later Password Cracking*
 
 Through OSINT and recon, we have located a list of compromised passwords from users within this company. Lets update our rockyou.txt password list to perform offline cracking hashes.
 
