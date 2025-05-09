@@ -41,6 +41,13 @@ orng-hr4 = 172.20.7.4
 - persistence
   - sticky keys
   - wmi event subscription
+
+#### When users log in their credentials are saved to C2
+
+```kql
+winlog.task:"Execute a Remote Command"  AND message:*vssadmin list shadows* AND event.dataset:"windows.powershell_operational" 
+```
+
   - sysmon config file
 - enumerate all user generated files
 - stego to encrypt all files into a image
