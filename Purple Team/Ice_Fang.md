@@ -14,6 +14,6 @@
 - stego to encrypt all files into a image
 - upload image to c2(twitter)
 
-## `DC`
+## DC
     login with elevated creds
 
