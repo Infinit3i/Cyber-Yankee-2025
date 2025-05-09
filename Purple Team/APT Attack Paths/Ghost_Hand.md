@@ -28,7 +28,7 @@
 
 - RepoSync.msi (Service as SYSTEM)
 
-- Cobalt Strike beacon
+#### [X] Cobalt Strike beacon
 
 ```kql
 message:"Creating Scriptblock text" and winlog.task: "Execute a Remote Command" and FromBase64String
