@@ -32,29 +32,11 @@
 
 ### Excessive LDAP Enumeration
 
-```kql
-system.security
-| where EventID == 4662 and ObjectType == "{bf967aba-0de6-11d0-a285-00aa003049e2}"]
-| summarize count() by Computer, SubjectUserName, bin(TimeGenerated, 5m)
-| where count_ > 50
-```
+
 
 ### BloodHound/SharpHound triggers burst lookup
 
-```kql
-CN=Users,DC=domain,DC=com
-LDAP query for SPNs
-DNS A lookups for all domain computers
-```
-
 ### Spike in lookups for AD computers/users
-
-```kql
-DeviceNetworkEvents
-| where RemotePort in (389, 445)
-| summarize count(), make_set(RemoteIP) by InitiatingProcessFileName, InitiatingProcessCommandLine, DeviceName, bin(Timestamp, 5m)
-| where count_ > 100
-```
 
 ### dropping tools
 
@@ -103,13 +85,6 @@ and winlog.event_data.PrivilegeList: ("SeDebugPrivilege", "SeTcbPrivilege")
 
 #### Multiple Kerberos Tickets for Same Account Across Hosts
 
-```kql
-event.module: "zeek" and event.dataset: "zeek.kerberos"
-and kerberos.client: "administrator"
-| stats count() by host.name, kerberos.service, kerberos.request_type, kerberos.valid_until
-| where count() > 3
-```
-
 #### Detect ticketer.py
 
 ```kql
@@ -122,69 +97,32 @@ and (winlog.event_data.AccountDomain: "NT AUTHORITY" or winlog.event_data.Accoun
 
 ### Sticky Keys
 
-```kql
-DeviceFileEvents
-| where FileName == "sethc.exe"
-| where ActionType in ("FileRenamed", "FileCreated", "FileModified", "FileDeleted")
-| where InitiatingProcessFileName != "TrustedInstaller.exe"
-| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine
-```
+
 
 ### WMI
 
 #### Detect Creation of EventFilter, EventConsumer, or FilterToConsumerBinding
 
-```kql
-DeviceRegistryEvents
-| where RegistryKey contains @"WMI\\Autologger" or RegistryKey contains @"WMI\\Subscription"
-| project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessCommandLine
-```
 
 #### Detect wmic or PowerShell Used to Create Subscription
 
-```kql
-DeviceProcessEvents
-| where ProcessCommandLine has_any ("EventConsumer", "EventFilter", "FilterToConsumerBinding")
-| where InitiatingProcessCommandLine has_any ("wmic", "powershell", "winmgmts:")
-| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
-```
+
 
 #### Detect Use of MOFComp.exe (WMI Compilation Tool)
 
-```kql
-DeviceProcessEvents
-| where FileName == "mofcomp.exe"
-| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
-```
 
 ### Sysmon Config
 
 #### Detect Process Command Line Updating Sysmon Config
 
-```kql
-DeviceProcessEvents
-| where ProcessCommandLine has "sysmon"
-| where ProcessCommandLine has "-c"
-| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, AccountName
-```
+
 
 #### Detect Dropping of XML Files Named sysmon.xml or Similar
 
-```kql
-DeviceFileEvents
-| where FileName has "sysmon.xml" or FolderPath has "sysmon"
-| where ActionType in ("FileCreated", "FileModified", "FileDeleted")
-| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine
-```
+
 
 #### Detect Registry Tampering of Sysmon Service
 
-```kql
-DeviceRegistryEvents
-| where RegistryKey has "System\\CurrentControlSet\\Services\\Sysmon"
-| where RegistryValueName in~ ("ImagePath", "Start", "Type")
-| project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessCommandLine
-```
 
 #### Enumeration of User-Generated Files via Command Line
 
@@ -221,7 +159,7 @@ and process.name : ("cmd.exe", "powershell.exe", "python.exe", "7z.exe", "rar.ex
 ```kql
 file where file.extension in ("jpg", "png", "bmp")
 and event.action == "file_write"
-and file.size > 5000000  // 5MB is suspicious for many images
+and file.size > 5000000
 and process.name : ("python.exe", "custom_stego.exe", "powershell.exe")
 ```
 
