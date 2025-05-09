@@ -3,7 +3,6 @@
 - `terran` -> `Denmark` -> `Kali` -> `windows workstation` -> `DC`
 
 ## windows workstation
-  
 `dropping tools, golden ticket attack, password hash, login with domain admin`
 
 - persistence
@@ -15,7 +14,7 @@
 - upload image to c2(twitter)
 
 ## DC
-    login with elevated creds
+`login with elevated creds`
 
 
 ### Sticky Keys
@@ -75,4 +74,30 @@ DeviceRegistryEvents
 | where RegistryKey has "System\\CurrentControlSet\\Services\\Sysmon"
 | where RegistryValueName in~ ("ImagePath", "Start", "Type")
 | project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessCommandLine
+```
+
+#### Enumeration of User-Generated Files via Command Line
+```kql
+process where event.type == "start" and (
+  (process.name : ("cmd.exe", "powershell.exe", "pwsh.exe")) and
+  (process.command_line : (
+    "*\\Users\\*\\Documents\\*", 
+    "*\\Users\\*\\Downloads\\*",
+    "*\\Users\\*\\Desktop\\*",
+    "*\\Users\\*\\Pictures\\*",
+    "*\\Users\\*\\Videos\\*",
+    "*\\Users\\*\\OneDrive\\*"
+  )) and
+  process.command_line : ("*dir*", "*tree*", "*Get-ChildItem*", "*ls*", "*cat*", "*type*")
+)
+```
+
+#### File Access Events
+```kql
+file where file.path : (
+  "C:\\Users\\*\\Documents\\*", 
+  "C:\\Users\\*\\Downloads\\*", 
+  "C:\\Users\\*\\Desktop\\*"
+) and event.action == "open"
+and process.name : ("cmd.exe", "powershell.exe", "python.exe", "7z.exe", "rar.exe")
 ```
