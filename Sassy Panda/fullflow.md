@@ -457,6 +457,10 @@ secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 
 ## Phase 8: Lateral Movement and Persistence
 
+Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
+
+
+
 Use Admin Shares:
 
 ```bash
