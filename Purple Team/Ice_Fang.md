@@ -18,7 +18,7 @@
     login with elevated creds
 
 
-#### Sticky Keys
+### Sticky Keys
 ```kql
 DeviceFileEvents
 | where FileName == "sethc.exe"
@@ -26,6 +26,8 @@ DeviceFileEvents
 | where InitiatingProcessFileName != "TrustedInstaller.exe"
 | project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine
 ```
+
+### WMI
 
 #### Detect Creation of EventFilter, EventConsumer, or FilterToConsumerBinding
 ```kql
