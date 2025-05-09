@@ -33,8 +33,8 @@
 ### Excessive LDAP Enumeration
 
 ```kql
-SecurityEvent
-| where EventID == 4662 and ObjectType == "{bf967aba-0de6-11d0-a285-00aa003049e2}" // User object
+system.security
+| where EventID == 4662 and ObjectType == "{bf967aba-0de6-11d0-a285-00aa003049e2}"]
 | summarize count() by Computer, SubjectUserName, bin(TimeGenerated, 5m)
 | where count_ > 50
 ```
