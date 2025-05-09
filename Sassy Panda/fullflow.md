@@ -459,7 +459,7 @@ secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 
 Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
 
-
+![IMAGE]https://github.com/Infinit3i/Cyber-Yankee-2025/blob/9993caae90329032f5b35a56bc1ae6e0b1da61cd/Sassy%20Panda/palo_payload_creation.png
 
 Use Admin Shares:
 
