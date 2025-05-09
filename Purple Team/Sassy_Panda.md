@@ -9,5 +9,5 @@
 ### Detect Meterpreter
 
 ```kql
-172.20.0.18 and message = *FromBase64String*
+172.20.0.18 and message:*FromBase64String*
 ```
