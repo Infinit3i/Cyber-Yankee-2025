@@ -9,9 +9,9 @@
 ## windows workstation
 
 - dropping tools
-- golden ticket attack
-- password hash
-- login with domain admin
+- [X] golden ticket attack
+- [X] password hash
+- [X] login with domain admin
 
 - persistence
   - [X] sticky keys
