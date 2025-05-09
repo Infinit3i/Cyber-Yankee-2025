@@ -9,7 +9,7 @@
     - [X] sticky keys
     - [X] wmi event subscription
     - [X] sysmon config file
-- enumerate all user generated files
+- [X] enumerate all user generated files
 - stego to encrypt all files into a image
 - upload image to c2(twitter)
 
