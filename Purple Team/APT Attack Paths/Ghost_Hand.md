@@ -2,6 +2,11 @@
 
 - `terran` -> `South Africa` -> `IT Admin` -> `Windows DC` -> `Many Endpoints` -> `infostealer`
 
+### IPs TODAY
+
+```
+```
+
 ## Phishing
 
 - RepoSync.msi (Service as SYSTEM)
