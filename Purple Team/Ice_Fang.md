@@ -58,17 +58,66 @@ DeviceNetworkEvents
 
 ### dropping tools
 
+#### File Creation on Endpoint
+
 ```kql
+event.module: "windows" and event.action: "file_created"
+and file.path: ("C:\\Users\\*", "C:\\ProgramData\\*", "C:\\Temp\\*", "C:\\Windows\\Tasks\\*", "C:\\Windows\\System32\\*")
+and file.extension: ("exe", "dll", "ps1", "bat", "vbs")
+```
+
+#### Network-based file downloads
+
+```kql
+event.module: "suricata"
+and fileinfo.filename: ("*.exe", "*.dll", "*.ps1", "*.bat")
+```
+
+#### detect SMB/NetBIOS Downloads
+
+```kql
+event.dataset: "zeek.smb_files"
+and file.name: ("*.exe", "*.dll", "*.bat", "*.ps1")
 ```
 
 ### golden ticket attack
+
+#### Process Execution of Known Mimikatz Names or Paths
+
+```kql
+event.module: "windows" and event.action: "process_start"
+and process.name: ("mimikatz.exe", "mimidrv.sys", "mimi.exe", "pwdump.exe")
+```
+
+#### Privilege Use (SeDebugPrivilege, SeTcbPrivilege)
+
+```kql
+event.code: ("4673", "4674")
+and winlog.event_data.PrivilegeList: ("SeDebugPrivilege", "SeTcbPrivilege")
+```
 
 ```kql
 ```
 
 ### Login With Domain Admin
 
+#### Multiple Kerberos Tickets for Same Account Across Hosts
+
 ```kql
+event.module: "zeek" and event.dataset: "zeek.kerberos"
+and kerberos.client: "administrator"
+| stats count() by host.name, kerberos.service, kerberos.request_type, kerberos.valid_until
+| where count() > 3
+```
+
+#### Detect ticketer.py
+
+```kql
+event.code: "4624"
+and winlog.event_data.AuthenticationPackageName: "Kerberos"
+and winlog.event_data.LogonType: "3"
+and (winlog.event_data.WorkstationName: "-" or winlog.event_data.WorkstationName: "")
+and (winlog.event_data.AccountDomain: "NT AUTHORITY" or winlog.event_data.AccountName: "*admin*")
 ```
 
 ### Sticky Keys
