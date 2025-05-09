@@ -2,6 +2,32 @@
 
 - `terran` -> `Denmark` -> `Kali` -|external|> `dns` -> `windows workstation` -> `DC`
 
+
+IPs TODAY
+
+```
+GreySpace - IT
+bull-it-kali-1 = 172.17.3.69
+bull-it-kali-2 = 172.17.3.70
+bull-it-kali-3 = 172.17.3.71
+bull-it-kali-4 = 172.17.3.72
+bull-it-kali-5 = 172.17.3.73
+
+Orange
+orng-hr11 = 172.20.7.11
+orng-hr2 = 172.20.7.2
+orng-hr3 = 172.20.7.3
+orng-hr4 = 172.20.7.4
+thats all we know so far
+
+Terran
+terran-kali-1 = 104.55.222.100
+terran-kali-2 = 104.55.222.101
+terran-kali-3 = 104.55.222.102
+terran-kali-4 = 104.55.222.103
+terran-kali-5 = 104.55.222.104
+```
+
 ## Dns
 
 - bloodhound
