@@ -10,7 +10,7 @@
     - [X] wmi event subscription
     - [X] sysmon config file
 - [X] enumerate all user generated files
-- stego to encrypt all files into a image
+- [X] stego to encrypt all files into a image
 - upload image to c2(twitter)
 
 ## DC
