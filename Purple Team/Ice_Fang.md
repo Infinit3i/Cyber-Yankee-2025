@@ -17,3 +17,27 @@
 ## DC
     login with elevated creds
 
+
+#### Sticky Keys
+```kql
+DeviceFileEvents
+| where FileName == "sethc.exe"
+| where ActionType in ("FileRenamed", "FileCreated", "FileModified", "FileDeleted")
+| where InitiatingProcessFileName != "TrustedInstaller.exe"
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine
+```
+
+#### Detect Creation of EventFilter, EventConsumer, or FilterToConsumerBinding
+```kql
+DeviceRegistryEvents
+| where RegistryKey contains @"WMI\\Autologger" or RegistryKey contains @"WMI\\Subscription"
+| project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessCommandLine
+```
+
+#### Detect wmic or PowerShell Used to Create Subscription
+```kql
+DeviceProcessEvents
+| where ProcessCommandLine has_any ("EventConsumer", "EventFilter", "FilterToConsumerBinding")
+| where InitiatingProcessCommandLine has_any ("wmic", "powershell", "winmgmts:")
+| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
+```
