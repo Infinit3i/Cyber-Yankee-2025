@@ -145,21 +145,5 @@ DeviceNetworkEvents
 
 #### Detect Creation of Suspicious .csv Files
 
-```kql
-DeviceFileEvents
-| where FileName endswith ".csv"
-| where FolderPath !has "Documents" and FolderPath !has "Downloads" // Exclude normal paths
-| where InitiatingProcessFileName in~ ("powershell.exe", "cmd.exe", "rundll32.exe", "regsvr32.exe")
-| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, ReportId
-```
-
 #### Detect Use of Recon Commands Writing to CSV
 
-```kql
-DeviceProcessEvents
-| where ProcessCommandLine has_any (">", "Out-File")
-| where ProcessCommandLine has ".csv"
-| where ProcessCommandLine has_any ("tasklist", "net user", "systeminfo", "whoami", "nltest", "dir", "quser")
-| where InitiatingProcessFileName in~ ("powershell.exe", "cmd.exe")
-| project Timestamp, DeviceName, InitiatingProcessFileName, ProcessCommandLine, FileName
-```
