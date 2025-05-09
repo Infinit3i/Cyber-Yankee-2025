@@ -41,3 +41,10 @@ DeviceProcessEvents
 | where InitiatingProcessCommandLine has_any ("wmic", "powershell", "winmgmts:")
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
 ```
+
+#### Detect Use of MOFComp.exe (WMI Compilation Tool)
+```kql
+DeviceProcessEvents
+| where FileName == "mofcomp.exe"
+| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
+```
