@@ -364,7 +364,7 @@ This will use Hashcat to attempt cracking the passwords. The -m 7400 option spec
 
 8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
 
-```bash
+```
 ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
 ```
 
