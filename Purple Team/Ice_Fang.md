@@ -53,6 +53,21 @@ DeviceNetworkEvents
 | where count_ > 100
 ```
 
+### dropping tools
+
+```kql
+```
+
+### golden ticket attack
+
+```kql
+```
+
+### Login With Domain Admin
+
+```kql
+```
+
 ### Sticky Keys
 
 ```kql
