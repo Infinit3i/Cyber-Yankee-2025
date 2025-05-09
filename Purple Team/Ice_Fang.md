@@ -50,3 +50,26 @@ DeviceProcessEvents
 | where FileName == "mofcomp.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName
 ```
+
+### Sysmon Config
+
+```kql
+DeviceProcessEvents
+| where ProcessCommandLine has "sysmon"
+| where ProcessCommandLine has "-c"
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, AccountName
+```
+
+```kql
+DeviceFileEvents
+| where FileName has "sysmon.xml" or FolderPath has "sysmon"
+| where ActionType in ("FileCreated", "FileModified", "FileDeleted")
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine
+```
+
+```kql
+DeviceRegistryEvents
+| where RegistryKey has "System\\CurrentControlSet\\Services\\Sysmon"
+| where RegistryValueName in~ ("ImagePath", "Start", "Type")
+| project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessCommandLine
+```
