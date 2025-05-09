@@ -101,3 +101,19 @@ file where file.path : (
 ) and event.action == "open"
 and process.name : ("cmd.exe", "powershell.exe", "python.exe", "7z.exe", "rar.exe")
 ```
+
+### Stego
+
+### Detect Large Writes to Image files
+```kql
+file where file.extension in ("jpg", "png", "bmp")
+and event.action == "file_write"
+and file.size > 5000000  // 5MB is suspicious for many images
+and process.name : ("python.exe", "custom_stego.exe", "powershell.exe")
+```
+
+#### Detect Encryption Activity
+```
+process where process.name : ("python.exe", "custom_stego.exe")
+and process.command_line has_any ("AES", "Fernet", "Crypto.Cipher", "Rijndael")
+```
