@@ -40,11 +40,39 @@
 ## Many Endpoints
 
 - deploy sliver
+
+#### 
+```kql
+```
+
+#### 
+```kql
+```
+
 - drop cryptominer
+
+
+#### 
+```kql
+```
+
+#### 
+```kql
+```
+
 - run cryptominer
-- krazcoin exfil of $
+
+#### 
+```kql
+```
+
+#### 
+```kql
+```
+
 
 #### Detect Access to Wallet Files
+
 ```kql
 DeviceFileEvents
 | where FileName endswith "wallet.dat" or FileName has "kraz"
@@ -53,6 +81,7 @@ DeviceFileEvents
 ```
 
 #### Detect Dumping or Sending via CLI or RPC
+
 ```kql
 DeviceProcessEvents
 | where ProcessCommandLine has_any ("dumpprivkey", "sendtoaddress", "backupwallet", "getbalance")
@@ -61,6 +90,7 @@ DeviceProcessEvents
 ```
 
 #### Detect Outbound Exfil to Suspicious IPs or Ports
+
 ```kql
 DeviceNetworkEvents
 | where RemotePort in (8333, 8332, 9050, 9150) // 8333: Bitcoin, 9050/9150: Tor
@@ -70,6 +100,7 @@ DeviceNetworkEvents
 ```
 
 #### Detect Crypto Clipboard Hijacking or Wallet Replacement
+
 ```kql
 DeviceEvents
 | where ActionType == "ClipboardContentAccessed"
@@ -78,7 +109,8 @@ DeviceEvents
 ```
 
 #### Detect Process Spawning Related to Wallet Theft
-```
+
+```kql
 DeviceProcessEvents
 | where ProcessCommandLine has_any ("AppData\\Roaming\\Krazcoin", "wallet.dat", "seed.txt")
 | where InitiatingProcessFileName in~ ("powershell.exe", "python.exe", "curl.exe", "cmd.exe")
@@ -86,6 +118,7 @@ DeviceProcessEvents
 ```
 
 #### Detect TOR or Proxy Usage Post-Wallet Access
+
 ```kql
 DeviceNetworkEvents
 | where InitiatingProcessCommandLine has_any ("kraz", "wallet")
@@ -97,5 +130,25 @@ DeviceNetworkEvents
 | project Timestamp, DeviceName, InitiatingProcessCommandLine, RemoteIP, RemotePort
 ```
 
+### cobalt strike info of files > csv
 
-- cobalt strike info of files > csv
+#### Detect Creation of Suspicious .csv Files
+
+```kql
+DeviceFileEvents
+| where FileName endswith ".csv"
+| where FolderPath !has "Documents" and FolderPath !has "Downloads" // Exclude normal paths
+| where InitiatingProcessFileName in~ ("powershell.exe", "cmd.exe", "rundll32.exe", "regsvr32.exe")
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, ReportId
+```
+
+#### Detect Use of Recon Commands Writing to CSV
+
+```kql
+DeviceProcessEvents
+| where ProcessCommandLine has_any (">", "Out-File")
+| where ProcessCommandLine has ".csv"
+| where ProcessCommandLine has_any ("tasklist", "net user", "systeminfo", "whoami", "nltest", "dir", "quser")
+| where InitiatingProcessFileName in~ ("powershell.exe", "cmd.exe")
+| project Timestamp, DeviceName, InitiatingProcessFileName, ProcessCommandLine, FileName
+```
