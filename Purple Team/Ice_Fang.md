@@ -7,7 +7,7 @@
 `dropping tools, golden ticket attack, password hash, login with domain admin`
 
 - persistence
-    - sticky keys
+    - [X] sticky keys
     - wmi event subscription
     - sysmon config file
 - enumerate all user generated files
