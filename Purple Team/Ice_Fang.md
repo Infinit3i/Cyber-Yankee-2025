@@ -1,6 +1,9 @@
 # Ice Fang
 
-- `terran` -> `Denmark` -> `Kali` -> `dns` -> `windows workstation` -> `DC`
+- `terran` -> `Denmark` -> `Kali` -|external|> `dns` -> `windows workstation` -> `DC`
+
+## Dns
+- bloodhound
 
 ## windows workstation
 `dropping tools, golden ticket attack, password hash, login with domain admin`
