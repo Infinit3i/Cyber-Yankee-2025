@@ -1,12 +1,13 @@
 # Ghost Hand
 
-- `terran` -> `Djibouti` -> `IT Admin` -> `Windows DC` -> `Many Endpoints` -> `infostealer`
+- `terran` -> `South Africa` -> `IT Admin` -> `Windows DC` -> `Many Endpoints` -> `infostealer`
 
 ## Phishing
 
 - RepoSync.msi (Service as SYSTEM)
 - Cobalt Strike beacon
 - Cobalt Strike port scan
+- Dump Credentials - ntds.dit
 
 ## DC
 
@@ -18,7 +19,5 @@
 - deploy sliver
 - drop cryptominer
 - run cryptominer
-- drop infostealer
-- run infostealer
 - krazcoin exfil of $
-- cobalt strike info of files
+- cobalt strike info of files > csv
