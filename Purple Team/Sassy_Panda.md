@@ -3,4 +3,4 @@
 - `terran` -> `Djibouti` -> `Palo Alto Firewall` -> `Windows DC` -> `OT`
 
 ## Palo Alto
-`initial exploit`, `whoami`, 
+`initial exploit`, `whoami`, `pwd`, `cd ~`, `ls`
