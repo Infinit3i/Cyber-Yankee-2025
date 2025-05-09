@@ -19,8 +19,8 @@
 - deploy sliver
 - drop cryptominer
 - run cryptominer
-- krazcoin exfil of $
-- cobalt strike info of files > csv
+- [x] krazcoin exfil of $
+- [x] cobalt strike info of files > csv
 
 ---
 
