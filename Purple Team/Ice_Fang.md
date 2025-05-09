@@ -8,7 +8,7 @@
 
 - persistence
     - [X] sticky keys
-    - wmi event subscription
+    - [X] wmi event subscription
     - sysmon config file
 - enumerate all user generated files
 - stego to encrypt all files into a image
