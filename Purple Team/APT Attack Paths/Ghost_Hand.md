@@ -29,6 +29,11 @@
 - RepoSync.msi (Service as SYSTEM)
 
 - Cobalt Strike beacon
+
+```kql
+message:"Creating Scriptblock text" and winlog.task: "Execute a Remote Command" and FromBase64String
+```
+
 - Cobalt Strike port scan
 - Dump Credentials - ntds.dit
 
@@ -115,6 +120,12 @@ DeviceProcessEvents
 | where ProcessCommandLine has_any ("AppData\\Roaming\\Krazcoin", "wallet.dat", "seed.txt")
 | where InitiatingProcessFileName in~ ("powershell.exe", "python.exe", "curl.exe", "cmd.exe")
 | project Timestamp, DeviceName, InitiatingProcessFileName, ProcessCommandLine
+```
+
+#### [X] Detect KrazCoin Encryption of 
+
+```kql
+message:"Creating Scriptblock text" and winlog.task: "Execute a Remote Command" AND powershell.file.script_block_text
 ```
 
 #### Detect TOR or Proxy Usage Post-Wallet Access
