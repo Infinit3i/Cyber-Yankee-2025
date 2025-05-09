@@ -19,8 +19,8 @@
 - deploy sliver
 - drop cryptominer
 - run cryptominer
-- [x] krazcoin exfil of $
-- [x] cobalt strike info of files > csv
+- krazcoin exfil of $
+- cobalt strike info of files > csv
 
 ---
 
@@ -71,56 +71,25 @@ message:"Creating Scriptblock text" and winlog.task: "Execute a Remote Command" 
 ```kql
 ```
 
-#### 
-```kql
-```
+
 
 
 #### Detect Access to Wallet Files
 
-```kql
-DeviceFileEvents
-| where FileName endswith "wallet.dat" or FileName has "kraz"
-| where ActionType in ("FileDeleted", "FileCreated", "FileModified")
-| project Timestamp, DeviceName, FileName, FolderPath, ActionType, InitiatingProcessFileName, InitiatingProcessCommandLine
-```
-
 #### Detect Dumping or Sending via CLI or RPC
 
-```kql
-DeviceProcessEvents
-| where ProcessCommandLine has_any ("dumpprivkey", "sendtoaddress", "backupwallet", "getbalance")
-| where ProcessCommandLine has "kraz"
-| project Timestamp, DeviceName, ProcessCommandLine, InitiatingProcessFileName, AccountName
-```
+
 
 #### Detect Outbound Exfil to Suspicious IPs or Ports
 
-```kql
-DeviceNetworkEvents
-| where RemotePort in (8333, 8332, 9050, 9150) // 8333: Bitcoin, 9050/9150: Tor
-| where RemoteIPType != "Private"
-| where InitiatingProcessCommandLine has_any ("kraz", "wallet", "crypto")
-| project Timestamp, DeviceName, RemoteIP, RemotePort, InitiatingProcessFileName, InitiatingProcessCommandLine
-```
+
 
 #### Detect Crypto Clipboard Hijacking or Wallet Replacement
 
-```kql
-DeviceEvents
-| where ActionType == "ClipboardContentAccessed"
-| where AdditionalFields has_any ("Kraz", "wallet", "address", "crypto")
-| project Timestamp, DeviceName, ReportId, InitiatingProcessCommandLine
-```
+
 
 #### Detect Process Spawning Related to Wallet Theft
 
-```kql
-DeviceProcessEvents
-| where ProcessCommandLine has_any ("AppData\\Roaming\\Krazcoin", "wallet.dat", "seed.txt")
-| where InitiatingProcessFileName in~ ("powershell.exe", "python.exe", "curl.exe", "cmd.exe")
-| project Timestamp, DeviceName, InitiatingProcessFileName, ProcessCommandLine
-```
 
 #### [X] Detect KrazCoin Encryption of 
 
@@ -129,17 +98,6 @@ message:"Creating Scriptblock text" and winlog.task: "Execute a Remote Command" 
 ```
 
 #### Detect TOR or Proxy Usage Post-Wallet Access
-
-```kql
-DeviceNetworkEvents
-| where InitiatingProcessCommandLine has_any ("kraz", "wallet")
-| join kind=inner (
-    DeviceNetworkEvents
-    | where RemotePort in (9050, 9150)
-    | where RemoteIPType != "Private"
-) on DeviceName
-| project Timestamp, DeviceName, InitiatingProcessCommandLine, RemoteIP, RemotePort
-```
 
 ### cobalt strike info of files > csv
 
