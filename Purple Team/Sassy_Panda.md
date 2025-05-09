@@ -4,3 +4,4 @@
 
 ## Palo Alto
 `initial exploit`, `whoami`, `pwd`, `cd ~`, `ls`
+
