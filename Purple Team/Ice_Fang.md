@@ -8,7 +8,7 @@
 
 ## windows workstation
 
-- dropping tools
+- [X] dropping tools
 - [X] golden ticket attack
 - [X] password hash
 - [X] login with domain admin
