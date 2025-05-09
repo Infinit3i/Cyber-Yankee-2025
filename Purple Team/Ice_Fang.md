@@ -3,7 +3,7 @@
 - `terran` -> `Denmark` -> `Kali` -|external|> `dns` -> `windows workstation` -> `DC`
 
 ## Dns
-- bloodhound
+- [x] bloodhound
 
 ## windows workstation
 `dropping tools, golden ticket attack, password hash, login with domain admin`
@@ -14,7 +14,7 @@
     - [X] sysmon config file
 - [X] enumerate all user generated files
 - [X] stego to encrypt all files into a image
-- upload image to c2(twitter)
+- [x] upload image to c2(twitter)
 
 ## DC
 `login with elevated creds`
