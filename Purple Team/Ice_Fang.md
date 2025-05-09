@@ -22,6 +22,9 @@
 
 `login with elevated creds`
 
+----
+----
+
 ### BloodHound
 
 ### Excessive LDAP Enumeration
