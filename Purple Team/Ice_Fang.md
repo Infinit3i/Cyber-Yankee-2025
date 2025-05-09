@@ -3,25 +3,29 @@
 - `terran` -> `Denmark` -> `Kali` -|external|> `dns` -> `windows workstation` -> `DC`
 
 ## Dns
+
 - [x] bloodhound
 
 ## windows workstation
+
 `dropping tools, golden ticket attack, password hash, login with domain admin`
 
 - persistence
-    - [X] sticky keys
-    - [X] wmi event subscription
-    - [X] sysmon config file
+  - [X] sticky keys
+  - [X] wmi event subscription
+  - [X] sysmon config file
 - [X] enumerate all user generated files
 - [X] stego to encrypt all files into a image
 - [x] upload image to c2(twitter)
 
 ## DC
+
 `login with elevated creds`
 
 ### BloodHound
 
 ### Excessive LDAP Enumeration
+
 ```kql
 SecurityEvent
 | where EventID == 4662 and ObjectType == "{bf967aba-0de6-11d0-a285-00aa003049e2}" // User object
@@ -30,6 +34,7 @@ SecurityEvent
 ```
 
 ### BloodHound/SharpHound triggers burst lookup
+
 ```kql
 CN=Users,DC=domain,DC=com
 LDAP query for SPNs
@@ -37,6 +42,7 @@ DNS A lookups for all domain computers
 ```
 
 ### Spike in lookups for AD computers/users
+
 ```kql
 DeviceNetworkEvents
 | where RemotePort in (389, 445)
@@ -44,8 +50,8 @@ DeviceNetworkEvents
 | where count_ > 100
 ```
 
-
 ### Sticky Keys
+
 ```kql
 DeviceFileEvents
 | where FileName == "sethc.exe"
@@ -57,6 +63,7 @@ DeviceFileEvents
 ### WMI
 
 #### Detect Creation of EventFilter, EventConsumer, or FilterToConsumerBinding
+
 ```kql
 DeviceRegistryEvents
 | where RegistryKey contains @"WMI\\Autologger" or RegistryKey contains @"WMI\\Subscription"
@@ -64,6 +71,7 @@ DeviceRegistryEvents
 ```
 
 #### Detect wmic or PowerShell Used to Create Subscription
+
 ```kql
 DeviceProcessEvents
 | where ProcessCommandLine has_any ("EventConsumer", "EventFilter", "FilterToConsumerBinding")
@@ -72,6 +80,7 @@ DeviceProcessEvents
 ```
 
 #### Detect Use of MOFComp.exe (WMI Compilation Tool)
+
 ```kql
 DeviceProcessEvents
 | where FileName == "mofcomp.exe"
@@ -81,6 +90,7 @@ DeviceProcessEvents
 ### Sysmon Config
 
 #### Detect Process Command Line Updating Sysmon Config
+
 ```kql
 DeviceProcessEvents
 | where ProcessCommandLine has "sysmon"
@@ -89,6 +99,7 @@ DeviceProcessEvents
 ```
 
 #### Detect Dropping of XML Files Named sysmon.xml or Similar
+
 ```kql
 DeviceFileEvents
 | where FileName has "sysmon.xml" or FolderPath has "sysmon"
@@ -97,6 +108,7 @@ DeviceFileEvents
 ```
 
 #### Detect Registry Tampering of Sysmon Service
+
 ```kql
 DeviceRegistryEvents
 | where RegistryKey has "System\\CurrentControlSet\\Services\\Sysmon"
@@ -105,6 +117,7 @@ DeviceRegistryEvents
 ```
 
 #### Enumeration of User-Generated Files via Command Line
+
 ```kql
 process where event.type == "start" and (
   (process.name : ("cmd.exe", "powershell.exe", "pwsh.exe")) and
@@ -121,6 +134,7 @@ process where event.type == "start" and (
 ```
 
 #### File Access Events
+
 ```kql
 file where file.path : (
   "C:\\Users\\*\\Documents\\*", 
@@ -133,6 +147,7 @@ and process.name : ("cmd.exe", "powershell.exe", "python.exe", "7z.exe", "rar.ex
 ### Stego
 
 ### Detect Large Writes to Image files
+
 ```kql
 file where file.extension in ("jpg", "png", "bmp")
 and event.action == "file_write"
@@ -141,6 +156,7 @@ and process.name : ("python.exe", "custom_stego.exe", "powershell.exe")
 ```
 
 #### Detect Encryption Activity
+
 ```
 process where process.name : ("python.exe", "custom_stego.exe")
 and process.command_line has_any ("AES", "Fernet", "Crypto.Cipher", "Rijndael")
