@@ -19,6 +19,31 @@
 ## DC
 `login with elevated creds`
 
+### BloodHound
+
+### Excessive LDAP Enumeration
+```kql
+SecurityEvent
+| where EventID == 4662 and ObjectType == "{bf967aba-0de6-11d0-a285-00aa003049e2}" // User object
+| summarize count() by Computer, SubjectUserName, bin(TimeGenerated, 5m)
+| where count_ > 50
+```
+
+### BloodHound/SharpHound triggers burst lookup
+```kql
+CN=Users,DC=domain,DC=com
+LDAP query for SPNs
+DNS A lookups for all domain computers
+```
+
+### Spike in lookups for AD computers/users
+```kql
+DeviceNetworkEvents
+| where RemotePort in (389, 445)
+| summarize count(), make_set(RemoteIP) by InitiatingProcessFileName, InitiatingProcessCommandLine, DeviceName, bin(Timestamp, 5m)
+| where count_ > 100
+```
+
 
 ### Sticky Keys
 ```kql
