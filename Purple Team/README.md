@@ -3,16 +3,16 @@
 Time of Each Attack
 
 Ghost Hand
-- Start: ``
-- End: ``
+- Start: `0:00`
+- End: `0:00`
 
 Sassy Panda
-- Start: ``
-- End: ``
+- Start: `0:00`
+- End: `0:00`
 
 Ice Fang
-- Start: ``
-- End: ``
+- Start: `0:00`
+- End: `0:00`
 
 ## Rule Sets
 
