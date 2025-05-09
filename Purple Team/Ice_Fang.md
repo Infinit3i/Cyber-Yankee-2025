@@ -53,6 +53,7 @@ DeviceProcessEvents
 
 ### Sysmon Config
 
+#### Detect Process Command Line Updating Sysmon Config
 ```kql
 DeviceProcessEvents
 | where ProcessCommandLine has "sysmon"
@@ -60,6 +61,7 @@ DeviceProcessEvents
 | project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, AccountName
 ```
 
+#### Detect Dropping of XML Files Named sysmon.xml or Similar
 ```kql
 DeviceFileEvents
 | where FileName has "sysmon.xml" or FolderPath has "sysmon"
@@ -67,6 +69,7 @@ DeviceFileEvents
 | project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine
 ```
 
+#### Detect Registry Tampering of Sysmon Service
 ```kql
 DeviceRegistryEvents
 | where RegistryKey has "System\\CurrentControlSet\\Services\\Sysmon"
