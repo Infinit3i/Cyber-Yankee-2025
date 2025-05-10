@@ -406,7 +406,7 @@ cd ~
 ls | grep users.txt
 ```
 
-4. Once you’ve confirmed that the file has been successfully transferred, you can exit the compromised machine. Your beacon terminal should still be active, allowing you to regain access at any time.
+5. Once you’ve confirmed that the file has been successfully transferred, you can exit the compromised machine. Your beacon terminal should still be active, allowing you to regain access at any time.
    `exit`
 
 ## Phase 4: Privilege Escalation
@@ -425,7 +425,6 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 
 ```bash
 grep -E '^[^:]+:!?\$[156]\$' users.txt | sed 's/:!/:/' > valid_hashes.txt
-
 ```
 
 This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called `valid_hashes.txt`.
