@@ -424,7 +424,7 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 3. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file:
 
 ```bash
-grep -E '^[^:]+:!?\$[156]\$' users.txt > valid_hashes.txt
+grep -E '^[^:]+:!?\$[156]\$' users.txt | sed 's/:!/:/' > valid_hashes.txt
 
 ```
 
@@ -433,7 +433,7 @@ This command filters the content of users.txt and extracts the lines that start 
 4. Now that you have the valid hashes in `valid_hashes.txt`, you can begin cracking the passwords offline using Hashcat. Run the following command to start the cracking process with the rockyou.txt wordlist:
 
 ```bash
-hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
+hashcat -m 7400 --username valid_hashes.txt /usr/share/wordlists/rockyou.txt
 ```
 
 This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
@@ -442,7 +442,11 @@ This will use Hashcat to attempt cracking the passwords. The -m 7400 option spec
 5. Once Hashcat has completed the cracking process, you can view the cracked passwords by running:
 
 ```bash
-hashcat --show valid_hashes.txt
+hashcat -m 7400 --username valid_hashes.txt --show | cut -d':' -f1,3 > creds.txt
+```
+
+```bash
+cat creds.txt
 ```
 
 6. Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
