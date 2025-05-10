@@ -11,7 +11,7 @@
 - name the crontab **netflow**
 - have the router crontabs reach back to the redirector
 
-
+---
 
 - specify in playbook whether we are sending from/to redirector or the terran attack box
 - meterpreter/metasploit, and ssh commands to pivot through palo --> rtr --> rtr --> rtr
