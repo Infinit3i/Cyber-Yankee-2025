@@ -465,18 +465,7 @@ chmod +x mspayload.elf
 ./mspayload.elf
 ```
 
-
-
-
-
-
-#router add the router section here
-
-
-
-
-
-
+# router add the router section here
 
 Assuming pivot success to internal hosts:
 
