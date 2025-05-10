@@ -352,7 +352,9 @@ NOTE- This will add a cron job that runs every minute, calling your pan_os_comm
 script and sending a beacon to your second listener.
 
 6. To check that your cron job has been successfully added, run the following:
-   `crontab -l`
+   ```bash
+   crontab -l
+   ```
 NOTE- This should display the current cron jobs, confirming that the job was added. The cron job will send a beacon to your listener every minute, ensuring that even if you lose access, you can reopen the listener using the same port, and it will catch the beacon again.
 
 ## Phase 3: Enumeration and Exfil
