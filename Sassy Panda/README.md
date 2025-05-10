@@ -228,6 +228,9 @@ X2qY$6@Cv9w2
 KG+Vs7e5$dF4
 
 ```
+
+### Metasploit Payload Setup
+Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
 Make the Payload file for The Palo:
 On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
 
