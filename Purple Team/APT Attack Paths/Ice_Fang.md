@@ -59,14 +59,12 @@ event.code: "4624" and winlog.event_data.LogonType:"10"
 event.code:4104 and winlog.computer_name:orng-user* AND "set-executionpolicy -executionpolicy bypass -Force"
 ```
 
-- golden ticket attack
-
-
-
 - password hash
-- login with domain admin
 
 - bloodhound
+
+- golden ticket attack
+- login with domain admin
 
 - persistence
   - sticky keys
