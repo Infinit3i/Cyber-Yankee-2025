@@ -460,6 +460,11 @@ options
 run -j
 ```
 
+```
+chmod +x mspayload.elf
+./mspayload.elf
+```
+
 Assuming pivot success to internal hosts:
 
 #### Scan internal subnets for DC or LDAP
