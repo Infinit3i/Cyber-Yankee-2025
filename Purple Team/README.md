@@ -18,6 +18,12 @@ Ice Fang
 
 ## Rule Sets
 
+### Snort
+
+Alert: `GPL ATTACK_RESPONSE id check returned root`
+- Reason: Shows if user does `whoami` or `id`
+
+
 ### Suricata
 
 Alert: `ET INFO RDP - Response To External Host`
