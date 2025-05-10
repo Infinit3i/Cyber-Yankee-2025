@@ -53,8 +53,12 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 ### Exploit Setup
 
 0. WORK ON A NEW BOX, NO TERMINALS OPEN
-1. Create a new folder on your `attack box`
+1. Create a new folder on your `attack box` called `Tools`.
    - This will stage all of the required files and scripts.
+     ```bash
+     mkdir Tools
+     ```
+     
 2. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
 3. Copy PoC.py from your host and paste into VM into the text editor
    - best case of doing this is utilizing `ClickPaste`
