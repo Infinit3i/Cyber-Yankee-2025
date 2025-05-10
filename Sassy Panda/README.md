@@ -142,8 +142,7 @@ copy password list to junk.file
 `ctrl+X`
 
 ```bash
-sudo su
-cat junk.file >> /usr/share/wordlists/rockyou.txt
+sudo cat junk.file >> /usr/share/wordlists/rockyou.txt
 ```
 
 
