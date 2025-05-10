@@ -413,9 +413,15 @@ ls | grep users.txt
 
 In this section, we will leverage the exfiltrated users.txt file that was pulled from the Palo Alto system. We will perform offline password cracking to gain legitimate credentials for the device.
 
-1. First, verify that you’re in the correct directory where users.txt is located. You can search for the file and navigate to it with the following commands: `find / -name "users.txt"`
-   Once you have found the file, change to the directory where it's located (unless you are already there): `cd /path/to/directory/with/users.txt`
-2. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file:
+1. First, verify that you’re in the correct directory where users.txt is located. You can search for the file and navigate to it with the following commands:
+   ```bash
+   find / -name "users.txt"
+   ```
+   Once you have found the file, change to the directory where it's located (unless you are already there):
+   ```bash
+   cd /path/to/directory/with/users.txt
+   ```
+3. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file:
 
 ```bash
 grep -E '^[^:]+:!?\$[156]\$' users.txt > valid_hashes.txt
