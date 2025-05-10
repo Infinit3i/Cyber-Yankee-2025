@@ -67,9 +67,9 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 8. (HOST) then click on `create a link`
 9. (HOST) `copy link`
 10. (VM) copy the link to your vm in the `commands`
-11. enter
-12. mv `weird name it gives you` Poc.py
-13. `chmod +x PoC.py`
+11. (VM) enter
+12. (VM) mv `weird name it gives you` Poc.py
+13. (VM) `chmod +x PoC.py`
 
 ### Persistence Script Setup
 
