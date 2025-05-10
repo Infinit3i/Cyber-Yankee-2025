@@ -30,6 +30,22 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 
 ## Phase 0: Initial Setup for Kill Chain
 
+### SSH Config File Update
+
+On your attack box, type in the following command:
+```
+sudo nano /etc/ssh/ssh_config
+```
+Then scroll to the very bottom and add the following block:
+```
+Host *
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
+```
+Then press `ctrl + O` and `ctrl + x`
+This saves your config so that later on when you ssh onto your boxes, you dont have to include extra options with your ssh command.
+
+
 ### SSH Proxy Chain
 
 #### Terran (104.55.222.X) `On your Attack Box`
