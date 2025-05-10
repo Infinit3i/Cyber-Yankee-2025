@@ -62,6 +62,7 @@ event.code:4104 and winlog.computer_name:orng-user* AND "set-executionpolicy -ex
 - golden ticket attack
 
 
+
 - password hash
 - login with domain admin
 

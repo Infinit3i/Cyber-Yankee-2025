@@ -20,6 +20,12 @@ Ice Fang
 
 ### Suricata
 
+Alert: `ET INFO RDP - Response To External Host`
+- Reason: Shows RDP Connections
+
+Alert: `ET MALWARE Cobalt Strike Beacon Observed`
+- Reason: Shows Cobalt Strike Persistence
+
 ### Sigma
 
 Alert: `CobaltStrike Service Installations - System`
