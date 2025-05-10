@@ -13,6 +13,7 @@
 
 
 
+- specify in playbook whether we are sending from/to redirector or the terran attack box
 - meterpreter/metasploit, and ssh commands to pivot through palo --> rtr --> rtr --> rtr
 - wget commands for pulling payloads to the palo and rtrs
 - crontab commands for rtrs
