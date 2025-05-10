@@ -119,12 +119,12 @@ nc -lvnp 63842
 
 ### *Host Your Tools Folder On A Web Server*
 
-1. In the folder where you have created your tools, start a web server to host the necessary files for the exploit
+1. In the folder where you have created your tools, start a web server on a random high port to host the necessary files for the exploit
    Run the below command to start the web server:
 
 ```bash
 cd ~/Tools
-python3 -m http.server 80
+python3 -m http.server 51855
 ```
 
 ### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
