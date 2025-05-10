@@ -45,7 +45,7 @@ ssh -p 5555 localhost   # connect back to Terran
 ```
 
 #### Terran (104.55.222.X)
-
+Will connect you to the Djibouti redirector.
 ```bash
 ssh -p 4444 localhost   # tunnel to Djibouti
 ```
