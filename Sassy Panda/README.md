@@ -39,7 +39,7 @@ ssh -N -R 5555:localhost:22 -L 4444:<DJIBOUTI_BOX>:22 -D 1080 kali@<DJIBOUTI_BOX
 ```
 
 #### Djibouti (102.214.90.X)
-
+If you want to go from your djiboiti redirector back to terran at any point, run the following on the djibouti rediredtor:
 ```bash
 ssh -p 5555 localhost   # connect back to Terran
 ```
