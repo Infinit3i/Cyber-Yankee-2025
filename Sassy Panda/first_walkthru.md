@@ -13,6 +13,6 @@
 
 
 
-meterpreter/metasploit, and ssh commands to pivot through palo --> rtr --> rtr --> rtr
-wget commands for pulling payloads to the palo and rtrs
-crontab commands for rtrs
+- meterpreter/metasploit, and ssh commands to pivot through palo --> rtr --> rtr --> rtr
+- wget commands for pulling payloads to the palo and rtrs
+- crontab commands for rtrs
