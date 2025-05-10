@@ -39,18 +39,29 @@ orng-user-23 = 172.20.12.23
 
 - nslookup `14:35`
 
+```kql
+event.dataset:zeek.dns AND (dns.query.name:"orange.lan" AND ("172.20.2.6" OR "172.20.2.7")) AND NOT message:*Ansible*
+```
+
 ## windows workstation
 
 - remote rdp connection `1454`
+
+```kql
+event.code: "4624" and winlog.event_data.LogonType:"10"
+```
 
 - dropping tools
 
 - powershell command install openssh `1508`
 
-
-
+```kql
+event.code:4104 and winlog.computer_name:orng-user* AND "set-executionpolicy -executionpolicy bypass -Force"
+```
 
 - golden ticket attack
+
+
 - password hash
 - login with domain admin
 
