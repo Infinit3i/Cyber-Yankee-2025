@@ -32,8 +32,8 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 
 ### SSH Proxy Chain
 
-#### Terran (104.55.222.X)
-
+#### Terran (104.55.222.X) `On your Attack Box`
+This will create a Dynamic Tunnel (1080) and static (5555) from the attack box to the redirector.
 ```bash
 ssh -N -R 5555:localhost:22 -L 4444:<DJIBOUTI_BOX>:22 -D 1080 kali@<DJIBOUTI_BOX>
 ```
