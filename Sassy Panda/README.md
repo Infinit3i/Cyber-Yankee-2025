@@ -413,6 +413,10 @@ sudo systemctl start ssh
 To confirm the service has started, run
 `systemctl status ssh`
 
+be root
+
+`sudo su`
+
 ```bash
 echo '' > /root/.ssh/known_hosts
 ```
