@@ -30,20 +30,31 @@ orng-hr4 = 172.20.7.4
 
 ```bash
 bull-it-hdsk-4 = 172.17.3.72
+DC = 172.20.2.6
+DC2 = 172.20.2.7
 orng-user-23 = 172.20.12.23
 ```
 
 ## Dns
 
-- nslookup ``
-- bloodhound
+- nslookup `14:35`
 
 ## windows workstation
 
+- remote rdp connection `1454`
+
 - dropping tools
+
+- powershell command install openssh `1508`
+
+
+
+
 - golden ticket attack
 - password hash
 - login with domain admin
+
+- bloodhound
 
 - persistence
   - sticky keys
