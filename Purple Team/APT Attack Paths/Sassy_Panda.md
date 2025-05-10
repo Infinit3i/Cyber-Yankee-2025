@@ -22,3 +22,7 @@
 ```kql
 172.20.0.18 and message:*FromBase64String*
 ```
+
+### Detect external IPs connecting to routers
+
+**Look for zeek traffic from outside range to routers**

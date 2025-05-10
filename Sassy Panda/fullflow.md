@@ -465,6 +465,19 @@ chmod +x mspayload.elf
 ./mspayload.elf
 ```
 
+
+
+
+
+
+#router add the router section here
+
+
+
+
+
+
+
 Assuming pivot success to internal hosts:
 
 #### Scan internal subnets for DC or LDAP
