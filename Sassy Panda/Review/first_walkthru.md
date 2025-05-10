@@ -4,11 +4,11 @@
 - click on the terminal you want to work on
 - Follow the script, it is a click script for a reason
 - always edit to add ip and port when you paste into text to client
-- add `echo '' > /root/.ssh/known_hosts` before scp
+- [X] add `echo '' > /root/.ssh/known_hosts` before scp
 - click on the terminal you want to work on
 - always edit to add ip and port when you paste into text to client
-- **POTENTIALLY** stage files on palo alto
-- name the crontab **netflow**
+- [N/A] **POTENTIALLY** stage files on palo alto
+- [x] name the file **netflow** in crontab
 - have the router crontabs reach back to the redirector
 
 ---
