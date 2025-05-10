@@ -382,7 +382,11 @@ hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
 This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
 
-6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: `hashcat --show valid_hashes.txt`
+6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running: 
+
+```bash
+hashcat --show valid_hashes.txt
+```
 
 7.Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
 
