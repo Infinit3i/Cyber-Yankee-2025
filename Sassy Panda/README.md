@@ -102,7 +102,7 @@ nc -lvnp 63842
    Run the below command to start the web server:
 
 ```bash
-python3 -m http.server 80
+python3 -m http.server 8080
 ```
 
 ### *Update Your `rockyou.txt` Wordlist For Later Password Cracking*
