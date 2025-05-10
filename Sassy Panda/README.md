@@ -453,7 +453,7 @@ cat creds.txt
 6. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
 
 ```bash
-ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
+ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@<palo alto IP>
 ```
 
 - When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
