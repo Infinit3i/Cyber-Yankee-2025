@@ -500,13 +500,12 @@ show routing route
 show arp all
 ```
 
-#### Look for management configs or logs
+#### Look for management configs or logs and send the output into a text file.
 
 ```bash
-cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
+cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius' > management.txt
 ```
 
-Copy the output and paste into a text editor on your kali and save the file.
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
 
