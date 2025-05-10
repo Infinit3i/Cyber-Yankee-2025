@@ -8,3 +8,5 @@
 - click on the terminal you want to work on
 - always edit to add ip and port when you paste into text to client
 - **POTENTIALLY** stage files on palo alto
+- name the crontab **netflow**
+- have the router crontabs reach back to the redirector
