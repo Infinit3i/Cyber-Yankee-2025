@@ -2,7 +2,6 @@
 
 - `terran` -> `Denmark` -> `Kali` -|external|> `dns` -> `windows workstation` -> `DC`
 
-
 ### IPs TODAY
 
 ```
@@ -27,8 +26,16 @@ orng-hr3 = 172.20.7.3
 orng-hr4 = 172.20.7.4
 ```
 
+### Users
+
+```bash
+bull-it-hdsk-4 = 172.17.3.72
+orng-user-23 = 172.20.12.23
+```
+
 ## Dns
 
+- nslookup ``
 - bloodhound
 
 ## windows workstation
@@ -48,7 +55,7 @@ orng-hr4 = 172.20.7.4
 winlog.task:"Execute a Remote Command"  AND message:*vssadmin list shadows* AND event.dataset:"windows.powershell_operational" 
 ```
 
-  - sysmon config file
+- sysmon config file
 - enumerate all user generated files
 - stego to encrypt all files into a image
 - upload image to c2(twitter)
