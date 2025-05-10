@@ -30,4 +30,7 @@ Alert: `Antivirus Ecploitation Framework Detection`
 
 ### Yara/Strelka
 
+Alert `Sliver_Implant_32bit`
+- Reason: Sports Sliver Beacon
+
 ### Sysmon
