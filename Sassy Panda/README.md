@@ -69,7 +69,10 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 10. (VM) copy the link to your vm in the `commands`
 11. (VM) enter
 12. (VM) mv `weird name it gives you` `Poc.py`
-14. (VM) Enter: ```chmod +x PoC.py```
+14. (VM) Enter:
+    ```bash
+    chmod +x PoC.py
+    ```
 
 ### Persistence Script Setup
 
@@ -329,9 +332,11 @@ ls
    ```
 
 3. Once created, run the following command:
-   ```chmod +x pan_os_comm`
+   ```bash
+   chmod +x pan_os_comm
+   ```
 
-4. To ensure that the file has been successfully downloaded and is executable, run:
+5. To ensure that the file has been successfully downloaded and is executable, run:
 
 ```bash
 ls -l /usr/local/bin | grep pan_os
