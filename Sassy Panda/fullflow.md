@@ -439,6 +439,12 @@ network.
 
 ## Phase 6: Target Discovery Inside Orange Space
 
+### Setup metasploit
+
+```
+msfconsole -q
+```
+
 Assuming pivot success to internal hosts:
 
 #### Scan internal subnets for DC or LDAP
