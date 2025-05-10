@@ -411,7 +411,8 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 2. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file:
 
 ```bash
-grep -E '^\S+:\$5\$' users.txt > valid_hashes.txt
+grep -E '^[^:]+:!?\$[156]\$' users.txt > valid_hashes.txt
+
 ```
 
    This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called valid_hashes.txt.
