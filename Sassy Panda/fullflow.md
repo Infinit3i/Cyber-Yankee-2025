@@ -460,7 +460,7 @@ options
 run -j
 ```
 
-```
+```bash
 chmod +x mspayload.elf
 ./mspayload.elf
 ```
