@@ -49,9 +49,6 @@ Will connect you to the Djibouti redirector.
 ```bash
 ssh -p 4444 localhost   # tunnel to Djibouti
 ```
-### Metasploit Payload Setup
-Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
-
 
 ### Exploit Setup
 
