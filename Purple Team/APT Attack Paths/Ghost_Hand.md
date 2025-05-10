@@ -5,6 +5,15 @@
 ## IPs TODAY
 
 ```
+safrica-kali-4 - 101.44.253.14
+terran-cobalt7 - 104.55.222.146
+
+
+repotools.net - 104.53.222.99 - FOSS Server
+watchdawgz.com - 104.53.222.47 - crypto-miner
+sysperform.org - 104.53.222.115 - trojan
+
+172.20.8.104 - mildred.sexton
 ```
 
 ## Phishing
