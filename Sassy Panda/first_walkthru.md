@@ -10,3 +10,8 @@
 - **POTENTIALLY** stage files on palo alto
 - name the crontab **netflow**
 - have the router crontabs reach back to the redirector
+
+
+
+Move payload prestage file creation to Prestage phase
+
