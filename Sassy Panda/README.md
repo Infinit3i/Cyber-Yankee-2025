@@ -500,12 +500,12 @@ show routing route
 show arp all
 ```
 
-#### Look for management configs or logs and send the output into a text file.
+#### Look for management configs or logs 
 
 ```bash
-cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius' > management.txt
+cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
 ```
-
+Copy the output into a text file
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
 
