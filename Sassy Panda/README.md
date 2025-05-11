@@ -132,7 +132,6 @@ python3 -m http.server 51855
 Through OSINT and recon, we have located a list of compromised passwords from users within this company. Lets update our rockyou.txt password list to perform offline cracking hashes.
 
 1. Locate your `rockyou.txt` file and open using sudo.
-2. Once open, append the below to list of passwords to the to the list.
 
 ```bash
 sudo nano /usr/share/wordlists/rockyou.txt
