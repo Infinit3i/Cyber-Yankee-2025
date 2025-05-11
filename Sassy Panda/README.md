@@ -415,7 +415,7 @@ To confirm the service has started, from your Kali machine, run
 systemctl status ssh
 ```
 
-be root
+##Switch users to become root and run the following commands.
 
 ```bash
 sudo su
@@ -519,12 +519,6 @@ show routing route
 show arp all
 ```
 
-#### Look for management configs or logs 
-
-```bash
-cat /config/config.xml | grep -i 'mgmt\|admin\|ldap\|radius'
-```
-Copy the output into a text file
 
 #### Attempt to pivot through firewall if routing/NAT is enabled
 
