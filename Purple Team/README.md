@@ -2,22 +2,7 @@
 
 Time of Each Attack
 
-Ghost Hand
 
-- Start: `0:00`
-- End: `0:00`
-
-Sassy Panda
-
-- Start: `0:00`
-- End: `0:00`
-
-Ice Fang
-
-- Start: `2025-05-10 13:50`
-- End: `0:00`
-
----
 
 ## Rule Sets
 
