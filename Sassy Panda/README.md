@@ -410,17 +410,22 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 ```
 
-To confirm the service has started, run
-`systemctl status ssh`
+To confirm the service has started, from your Kali machine, run
+```bash
+systemctl status ssh
+```
 
 be root
 
-`sudo su`
+```bash
+sudo su
+```
 
 ```bash
 echo '' > /root/.ssh/known_hosts
 ```
 
+From the Palo Alto CLI, run this command to secure copy the `users.txt` file from your Kali box to the Palo machine.
 ```bash
 scp users.txt kali@<your_ip_address>:.
 ```
