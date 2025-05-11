@@ -70,7 +70,7 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 
 0. WORK ON A NEW BOX, NO TERMINALS OPEN
 1. Create a new folder on your `attack box` called `Tools`.
-   - This will stage all of the required files and scripts.
+   - This will stage all of the required files and scripts, except PoC.py.
      ```bash
      mkdir ~/Tools
      ```
@@ -82,7 +82,7 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 7. (HOST) upload `PoC.py`
 8. (HOST) then click on `create a link`
 9. (HOST) `copy link`
-10. (VM) copy the link to your vm in the `commands`
+10. (VM) copy the link to your vm in the `commands` Make sure you put this file in /home/kali, this is the only script that won't be in /home/kali/Tools.
 11. (VM) enter
 12. (VM) mv `weird name it gives you` `Poc.py`
 14. (VM) Enter:
