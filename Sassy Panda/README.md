@@ -135,17 +135,13 @@ Through OSINT and recon, we have located a list of compromised passwords from us
 2. Once open, append the below to list of passwords to the to the list.
 
 ```bash
-touch junk.file
-nano junk.file
+sudo nano /usr/share/wordlists/rockyou.txt
 ```
+`ctrl+O`
 
-copy password list to junk.file
+copy and paste password list into rockyou.txt using the orange `commands`
+
 `ctrl+X`
-
-```bash
-sudo cat junk.file >> /usr/share/wordlists/rockyou.txt
-```
-
 
 #### PASSWORD LIST
 
