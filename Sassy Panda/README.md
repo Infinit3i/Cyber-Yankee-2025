@@ -555,7 +555,9 @@ Go to your meterpreter screen
  you should have seen the multi/handler catch the payload
 
  In your meterpreter session
- press `bg` 
+ 
+ press `bg`  to background the session
+ 
  press `jobs` to ensure that the mulit/handler is still running  
 
 
