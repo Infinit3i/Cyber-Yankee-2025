@@ -84,7 +84,7 @@ ssh -p 4444 localhost   # tunnel to Djibouti
 9. (HOST) `copy link`
 10. (VM) copy the link to your vm in the `commands` Make sure you put this file in /home/kali, this is the only script that won't be in /home/kali/Tools.
 11. (VM) enter
-12. (VM) mv `weird name it gives you` `Poc.py`
+12. (VM) mv `weird name it gives you` `PoC.py`
 14. (VM) Enter:
     ```bash
     chmod +x PoC.py
