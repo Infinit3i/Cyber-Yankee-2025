@@ -35,6 +35,10 @@ Alert: `ET MALWARE Cobalt Strike Beacon Observed`
 
 - Reason: Shows Cobalt Strike Persistence
 
+Alert: `ET INFO Windows Powershell User-Agent Usage`
+
+- Reason: Finds iex downloads from powershell
+
 ### Sigma
 
 Alert: `CobaltStrike Service Installations - System`

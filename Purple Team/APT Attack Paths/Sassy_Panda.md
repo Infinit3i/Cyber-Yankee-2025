@@ -28,3 +28,15 @@
 ### Detect external IPs connecting to routers
 
 **Look for zeek traffic from outside range to routers**
+
+### doing whoami, & id
+
+```kql
+suricata Alert
+```
+
+### scp
+
+```kql
+IPs together with port 22
+```
